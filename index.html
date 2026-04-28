@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Кроссворды</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ГЛАВНАЯ СТРАНИЦА -->
+  <div id="main-screen" class="screen active">
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-icon">✦</span>
+          <span>Кроссворды</span>
+        </div>
+        <button class="close-btn" id="close-main" title="Закрыть">✕</button>
+      </div>
+    </header>
+    <main class="cards-grid" id="cards-container"></main>
+  </div>
+
+  <!-- ЭКРАН КРОССВОРДА -->
+  <div id="game-screen" class="screen">
+    <div class="game-header" id="game-header">
+      <button class="back-btn" id="back-to-main">← Назад</button>
+      <div class="game-title" id="game-title">Кроссворд #1</div>
+      <div class="stars-small" id="game-stars"></div>
+    </div>
+
+    <div class="crossword-wrapper" id="crossword-wrapper">
+      <div class="crossword-grid" id="crossword-grid"></div>
+    </div>
+
+    <div class="clue-panel" id="clue-panel">
+      <button class="clue-arrow" id="clue-arrow-left">‹</button>
+      <div class="clue-text" id="clue-text"></div>
+      <button class="clue-arrow" id="clue-arrow-right">›</button>
+    </div>
+
+    <div class="keyboard" id="keyboard"></div>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-num" id="modal-num"></span>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <div class="modal-clue" id="modal-clue"></div>
+      <button class="modal-ok" id="modal-ok">Понятно</button>
+    </div>
+  </div>
+
+  <script src="js/questions.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
