@@ -1,5 +1,7 @@
 const crosswordsData = [
-  { id:1, title:'Кроссворд #1', difficulty:1,
+  { id:1,
+    title:'Кроссворд #1',
+    difficulty:1,
     grid:[
       ['.','1',' ',' ',' ','.'],
       ['2',' ','.','3',' ',' '],
