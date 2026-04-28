@@ -1,67 +1,74 @@
 /* =============================================
-   CROSSWORD MICROSITE — STYLE.CSS
+   КРОССВОРДЫ — ПОЛНАЯ ТАБЛИЦА СТИЛЕЙ
+   Все комментарии и пояснения на русском
    ============================================= */
 
+/* ── ПЕРЕМЕННЫЕ (КАСТОМИЗИРУЕМЫЕ ЗНАЧЕНИЯ) ── */
 :root {
-  --blue:       #059fdd;
-  --blue2:      #069fdb;
-  --blue-dark:  #0480b3;
-  --blue-light: rgba(5,159,221,0.12);
-  --gray1:      #d7d8da;
-  --gray2:      #dfe0e2;
-  --bg:         #f4f5f7;
-  --surface:    #ffffff;
-  --border:     #d7d8da;
-  --text:       #1a1c22;
-  --text-muted: #7a7d8a;
-  --correct-bg:     #e6f7ef;
-  --correct-border: #3dbf7a;
-  --correct-text:   #1e7a4a;
-  --star-on:  #059fdd;
-  --star-off: #d7d8da;
-  --radius:   16px;
+  --blue:       #059fdd;   /* основной синий */
+  --blue2:      #069fdb;   /* синий для активных элементов */
+  --blue-dark:  #0480b3;   /* тёмно-синий (наведение/фокус) */
+  --blue-light: rgba(5,159,221,0.12); /* полупрозрачный синий фон */
+  --gray1:      #d7d8da;   /* светлая обводка */
+  --gray2:      #dfe0e2;   /* фон клавиатуры */
+  --bg:         #f4f5f7;   /* фон всей страницы */
+  --surface:    #ffffff;   /* белые карточки */
+  --border:     #d7d8da;   /* граница карточек */
+  --text:       #1a1c22;   /* основной цвет текста */
+  --text-muted: #7a7d8a;   /* приглушённый текст */
+  --correct-bg:     #e6f7ef;   /* фон правильно угаданной ячейки */
+  --correct-border: #3dbf7a;   /* рамка правильной ячейки */
+  --correct-text:   #1e7a4a;   /* цвет буквы в правильной ячейке */
+  --star-on:  #059fdd;   /* закрашенная звезда */
+  --star-off: #d7d8da;   /* пустая звезда */
+  --radius:   16px;       /* скругление карточек */
   --shadow:    0 4px 20px rgba(5,159,221,0.10), 0 1px 4px rgba(0,0,0,0.06);
   --shadow-lg: 0 12px 40px rgba(5,159,221,0.18), 0 2px 8px rgba(0,0,0,0.08);
+  /* Системный шрифт с засечками для основного текста */
   --font: system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', Arial, sans-serif;
+  /* Декоративный жирный шрифт для заголовков */
   --font-display: 'Arial Rounded MT Bold', 'Segoe UI', system-ui, sans-serif;
 }
 
+/* ── СБРОС СТИЛЕЙ ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+html { font-size: 16px; -webkit-text-size-adjust: 100%; } /* запрещаем масштабирование текста на iOS */
 
 body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font);
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: hidden; /* убираем горизонтальную прокрутку */
 }
 
 /* =============================================
-   SCREENS
+   ЭКРАНЫ (ГЛАВНАЯ И ИГРОВАЯ)
    ============================================= */
 
+/* По умолчанию экраны скрыты, показываем только активный */
 .screen { display: none; }
 .screen.active { display: block; }
 
+/* Главный экран — растягивается на всю высоту */
 #main-screen.active {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Game screen fills exactly the viewport */
+/* Игровой экран — ровно по высоте видимой области, без прокрутки */
 #game-screen.active {
-  height: 100dvh;
-  height: 100vh;
-  overflow: hidden;
+  height: 100dvh;        /* динамическая высота вьюпорта (iPhone) */
+  height: 100vh;         /* запасной вариант */
+  overflow: hidden;      /* ничего не вылезает за пределы */
   display: flex;
   flex-direction: column;
 }
 
 /* =============================================
-   HEADER
+   ШАПКА ГЛАВНОГО ЭКРАНА
    ============================================= */
 
 .header {
@@ -70,22 +77,23 @@ body {
   height: 60px;
   display: flex;
   align-items: center;
-  position: sticky;
+  position: sticky;      /* прилипает к верху при прокрутке */
   top: 0;
   z-index: 20;
   box-shadow: 0 2px 12px rgba(5,159,221,0.3);
-  flex-shrink: 0;
+  flex-shrink: 0;        /* не сжимается */
 }
 
 .header-inner {
   width: 100%;
   max-width: 700px;
-  margin: 0 auto;
+  margin: 0 auto;        /* центрируем содержимое */
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+/* Логотип — иконка + текст */
 .logo {
   display: flex;
   align-items: center;
@@ -102,7 +110,7 @@ body {
   opacity: 0.85;
 }
 
-/* Крестик — фиксированный, правый верхний угол */
+/* Кнопка «Закрыть» — фиксирована в правом верхнем углу */
 .close-btn {
   position: fixed;
   top: 12px;
@@ -128,18 +136,18 @@ body {
 .close-btn:hover {
   background: rgba(255,255,255,0.3);
   border-color: rgba(255,255,255,0.8);
-  transform: rotate(90deg);
+  transform: rotate(90deg);    /* небольшой поворот при наведении */
 }
 
 .close-btn:active { transform: scale(0.9) rotate(90deg); }
 
 /* =============================================
-   CARDS GRID
+   КАРТОЧКИ КРОССВОРДОВ (ГЛАВНАЯ СТРАНИЦА)
    ============================================= */
 
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);   /* 2 колонки по умолчанию */
   gap: 18px;
   padding: 24px 18px 40px;
   max-width: 700px;
@@ -148,14 +156,17 @@ body {
   flex: 1;
 }
 
+/* На экранах шире 520px — 3 колонки */
 @media (min-width: 520px) {
   .cards-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
 }
 
+/* На широких экранах — побольше отступы */
 @media (min-width: 700px) {
   .cards-grid { gap: 24px; padding: 32px 24px 48px; }
 }
 
+/* Одна карточка */
 .card {
   background: var(--surface);
   border: 2px solid var(--border);
@@ -163,31 +174,32 @@ body {
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-  animation: fadeUp 0.4s ease both;
+  animation: fadeUp 0.4s ease both;   /* плавное появление */
   box-shadow: var(--shadow);
 }
 
 .card:hover {
-  transform: translateY(-5px) scale(1.02);
+  transform: translateY(-5px) scale(1.02);  /* приподнимается */
   border-color: var(--blue);
   box-shadow: var(--shadow-lg);
 }
 
-.card:active { transform: scale(0.97); }
+.card:active { transform: scale(0.97); }  /* нажатие — лёгкое сжатие */
 
+/* Анимация появления карточек снизу */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(18px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Mini grid preview */
+/* Мини-сетка внутри карточки (превью кроссворда) */
 .card-grid-preview {
   background: var(--gray2);
   padding: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / 1;   /* квадратная область */
 }
 
 .mini-grid {
@@ -200,9 +212,10 @@ body {
 }
 
 .mini-cell { border-radius: 2px; }
-.mini-cell.black { background: #a0a2a8; }
-.mini-cell.white { background: #fff; border: 1px solid #d0d1d4; }
+.mini-cell.black { background: #a0a2a8; }           /* чёрная клетка */
+.mini-cell.white { background: #fff; border: 1px solid #d0d1d4; } /* белая */
 
+/* Нижняя часть карточки */
 .card-footer {
   padding: 12px 14px 14px;
   border-top: 1px solid var(--gray2);
@@ -216,7 +229,7 @@ body {
   margin-bottom: 8px;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: ellipsis;  /* обрезаем длинные названия */
 }
 
 .card-meta {
@@ -225,13 +238,14 @@ body {
   justify-content: flex-end;
 }
 
+/* Звёзды сложности */
 .stars { display: flex; gap: 3px; }
 .star { font-size: clamp(0.95rem, 3vw, 1.1rem); transition: transform 0.15s; }
-.star.filled  { color: var(--star-on); }
-.star.empty   { color: var(--star-off); }
+.star.filled  { color: var(--star-on); }   /* активная звезда */
+.star.empty   { color: var(--star-off); }  /* пустая */
 
 /* =============================================
-   GAME HEADER
+   ИГРОВОЙ ХЕДЕР (КРОССВОРД ОТКРЫТ)
    ============================================= */
 
 .game-header {
@@ -245,6 +259,7 @@ body {
   box-shadow: 0 2px 12px rgba(5,159,221,0.3);
 }
 
+/* Кнопка «Назад» */
 .back-btn {
   background: rgba(255,255,255,0.18);
   border: 1.5px solid rgba(255,255,255,0.5);
@@ -264,6 +279,7 @@ body {
   border-color: rgba(255,255,255,0.85);
 }
 
+/* Название кроссворда */
 .game-title {
   font-family: var(--font-display);
   font-size: clamp(0.7rem, 3vw, 0.9rem);
@@ -273,17 +289,19 @@ body {
   color: #fff;
 }
 
+/* Маленькие звёзды в хедере */
 .stars-small .star { font-size: clamp(0.85rem, 3vw, 1rem); }
 .stars-small .star.filled { color: #fff; }
 .stars-small .star.empty  { color: rgba(255,255,255,0.35); }
 
 /* =============================================
-   CROSSWORD GRID
+   СЕТКА КРОССВОРДА
    ============================================= */
 
+/* Обёртка — центрирует сетку и даёт ей занять доступное место */
 .crossword-wrapper {
-  flex: 1 1 0;
-  min-height: 0;
+  flex: 1 1 0;           /* растягивается на всё свободное пространство */
+  min-height: 0;         /* разрешаем сжиматься во flex-контейнере */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -291,12 +309,14 @@ body {
   overflow: hidden;
 }
 
+/* Сама сетка (CSS Grid) */
 .crossword-grid {
   display: grid;
   gap: 3px;
-  flex-shrink: 0;
+  flex-shrink: 0;        /* не даём сжаться меньше своего размера */
 }
 
+/* Одна ячейка сетки */
 .gcell {
   position: relative;
   border-radius: 5px;
@@ -304,14 +324,16 @@ body {
   align-items: center;
   justify-content: center;
   transition: background 0.12s, border-color 0.12s;
-  user-select: none;
+  user-select: none;     /* запрещаем выделение текста */
 }
 
+/* Чёрная (заблокированная) ячейка */
 .gcell.black {
   background: #b0b2b8;
   border-radius: 4px;
 }
 
+/* Белая (игровая) ячейка */
 .gcell.white {
   background: #ffffff;
   border: 2px solid var(--gray1);
@@ -323,11 +345,13 @@ body {
   background: rgba(5,159,221,0.06);
 }
 
+/* Все ячейки активного слова подсвечены */
 .gcell.active-word {
   background: rgba(5,159,221,0.14);
   border-color: var(--blue2);
 }
 
+/* Ячейка, в которой стоит курсор (выделена ярче) */
 .gcell.active-cursor {
   background: var(--blue) !important;
   border-color: var(--blue-dark) !important;
@@ -336,6 +360,7 @@ body {
 .gcell.active-cursor .cell-letter { color: #fff !important; }
 .gcell.active-cursor .cell-num    { color: rgba(255,255,255,0.8) !important; }
 
+/* Правильно угаданная ячейка — зелёная, не кликабельна */
 .gcell.correct {
   background: var(--correct-bg) !important;
   border-color: var(--correct-border) !important;
@@ -345,6 +370,7 @@ body {
 
 .gcell.correct .cell-letter { color: var(--correct-text) !important; }
 
+/* Номер слова (маленькая цифра в углу) */
 .cell-num {
   position: absolute;
   top: 1px;
@@ -353,9 +379,10 @@ body {
   font-weight: 800;
   color: #555;
   line-height: 1;
-  pointer-events: none;
+  pointer-events: none;   /* не мешает клику по ячейке */
 }
 
+/* Буква внутри ячейки */
 .cell-letter {
   font-family: var(--font-display);
   font-weight: 700;
@@ -364,13 +391,17 @@ body {
   pointer-events: none;
 }
 
-/* game-right wraps clue + keyboard */
+/* =============================================
+   ПРАВАЯ ПАНЕЛЬ (ПОДСКАЗКА + КЛАВИАТУРА)
+   В портрете «приклеивается» через display:contents
+   ============================================= */
+
 .game-right {
-  display: contents; /* in portrait — acts as if it doesn't exist */
+  display: contents; /* не создаёт отдельного блока, элементы текут как обычно */
 }
 
 /* =============================================
-   CLUE PANEL
+   ПАНЕЛЬ ПОДСКАЗКИ (МЕЖДУ СЕТКОЙ И КЛАВИАТУРОЙ)
    ============================================= */
 
 .clue-panel {
@@ -385,6 +416,7 @@ body {
   flex-shrink: 0;
 }
 
+/* Текст подсказки (номер, направление, описание) */
 .clue-text {
   flex: 1;
   font-size: clamp(0.78rem, 2.8vw, 0.9rem);
@@ -392,7 +424,7 @@ body {
   text-align: center;
   line-height: 1.3;
   font-weight: 600;
-  cursor: pointer;
+  cursor: pointer;        /* нажатие открывает модалку */
   padding: 3px 4px;
   border-radius: 6px;
   transition: color 0.15s;
@@ -403,6 +435,7 @@ body {
 
 .clue-text:hover { color: var(--blue); }
 
+/* Стрелки переключения между словами */
 .clue-arrow {
   background: var(--blue-light);
   border: none;
@@ -425,7 +458,7 @@ body {
 .clue-arrow:active { transform: scale(0.88); }
 
 /* =============================================
-   KEYBOARD
+   ЭКРАННАЯ КЛАВИАТУРА
    ============================================= */
 
 .keyboard {
@@ -435,6 +468,7 @@ body {
   flex-shrink: 0;
 }
 
+/* Строка клавиш */
 .kb-row {
   display: flex;
   justify-content: center;
@@ -442,6 +476,7 @@ body {
   margin-bottom: 6px;
 }
 
+/* Одна клавиша */
 .kb-key {
   background: #fff;
   border: 1.5px solid var(--gray1);
@@ -455,7 +490,7 @@ body {
   cursor: pointer;
   transition: background 0.1s, transform 0.08s, border-color 0.1s;
   text-align: center;
-  box-shadow: 0 3px 0 var(--gray1);
+  box-shadow: 0 3px 0 var(--gray1);  /* имитация объёма */
 }
 
 .kb-key:hover {
@@ -464,13 +499,14 @@ body {
 }
 
 .kb-key:active {
-  transform: translateY(2px) scale(0.93);
+  transform: translateY(2px) scale(0.93);  /* «утопление» клавиши */
   box-shadow: none;
   background: var(--blue);
   color: #fff;
   border-color: var(--blue-dark);
 }
 
+/* Клавиша Backspace (⌫) — шире и другого цвета */
 .kb-backspace {
   width: clamp(38px, 11vw, 54px);
   background: var(--gray2);
@@ -479,21 +515,21 @@ body {
 }
 
 /* =============================================
-   MODAL — лаконичный, без хедера и крестика
+   МОДАЛЬНОЕ ОКНО (ПОКАЗЫВАЕТ ПОДСКАЗКУ КРУПНО)
    ============================================= */
 
 .modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(10, 20, 40, 0.50);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);   /* размытие фона */
   z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
   opacity: 0;
-  pointer-events: none;
+  pointer-events: none;         /* когда скрыто — не ловит клики */
   transition: opacity 0.2s ease;
 }
 
@@ -509,14 +545,15 @@ body {
   max-width: 320px;
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(5,159,221,0.20), 0 4px 16px rgba(0,0,0,0.10);
-  transform: scale(0.92) translateY(12px);
+  transform: scale(0.92) translateY(12px);   /* начальное положение для анимации */
   transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
 }
 
 .modal-overlay.visible .modal-box {
-  transform: scale(1) translateY(0);
+  transform: scale(1) translateY(0);         /* финальное положение */
 }
 
+/* Текст подсказки в модалке */
 .modal-clue {
   padding: 28px 24px 16px;
   font-size: clamp(1rem, 4vw, 1.15rem);
@@ -526,6 +563,7 @@ body {
   text-align: center;
 }
 
+/* Кнопка «Понятно» */
 .modal-ok {
   display: block;
   width: calc(100% - 32px);
@@ -546,13 +584,17 @@ body {
 .modal-ok:active { transform: scale(0.97); }
 
 /* =============================================
-   RESPONSIVE
+   АДАПТИВ: МАЛЕНЬКИЕ ЭКРАНЫ (ШИРИНА ≤ 360px)
    ============================================= */
 
 @media (max-width: 360px) {
   .cards-grid { gap: 14px; padding: 16px 14px 32px; }
   .kb-key { padding: 7px 0; font-size: 0.65rem; }
 }
+
+/* =============================================
+   АДАПТИВ: ШИРОКИЕ ЭКРАНЫ (≥ 900px)
+   ============================================= */
 
 @media (min-width: 900px) {
   .game-header { padding: 0 28px; }
@@ -563,307 +605,66 @@ body {
 }
 
 /* =============================================
-   LANDSCAPE на телефонах
+   АДАПТИВ: ГОРИЗОНТАЛЬНАЯ ОРИЕНТАЦИЯ
+   (телефоны и планшеты с высотой экрана ≤ 500px)
+
+   ВАЖНО: всё идёт ВЕРТИКАЛЬНО — хедер, сетка, подсказка, клавиатура
+   НИКАКИХ боковых колонок!
    ============================================= */
 
 @media (orientation: landscape) and (max-height: 500px) {
-  /* Хедер компактнее */
+
+  /* Игровой экран — строго колонка (вертикально) */
+  #game-screen.active {
+    flex-direction: column;   /* ← всё идёт сверху вниз */
+    align-items: stretch;
+  }
+
+  /* Хедер — компактный, но видимый */
   .game-header {
     height: 38px;
   }
 
-  /* Сетка занимает всё свободное место */
+  /* Кнопка «Назад» — остаётся в хедере */
+  .back-btn {
+    font-size: 0.72rem;
+    padding: 4px 10px;
+  }
+
+  /* Звёзды показываем */
+  #game-stars { display: flex; }
+
+  /* Сетка кроссворда — занимает максимум места */
   .crossword-wrapper {
+    flex: 1 1 0;
+    min-height: 0;
     padding: 4px 6px;
   }
 
-  /* Панель вопроса компактнее */
+  /* ПАНЕЛЬ ПОДСКАЗКИ — строго ПОД сеткой, во всю ширину */
   .clue-panel {
     height: 36px;
-    padding: 0 8px;
+    padding: 0 10px;
+    flex-shrink: 0;
   }
 
   .clue-text {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
+    white-space: nowrap;        /* одна строка, обрезается */
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
-  /* Клавиатура внизу, компактная */
+  /* КЛАВИАТУРА — строго ПОД подсказкой, во всю ширину */
   .keyboard {
-    padding: 4px 4px 6px;
+    padding: 4px 5px 8px;
+    flex-shrink: 0;
   }
 
   .kb-row {
     margin-bottom: 3px;
     gap: 3px;
   }
-
-  .kb-key {
-    width: clamp(24px, 7vw, 34px);
-    padding: 6px 0;
-    font-size: clamp(0.62rem, 2.2vw, 0.8rem);
-    border-radius: 6px;
-    box-shadow: 0 2px 0 var(--gray1);
-  }
-
-  .kb-backspace {
-    width: clamp(30px, 9vw, 44px);
-    font-size: 0.9rem;
-  }
-}
-
-/* =============================================
-   KEYBOARD
-   ============================================= */
-
-.keyboard {
-  padding: 8px 5px 14px;
-  background: var(--gray2);
-  border-top: 1px solid var(--gray1);
-  flex-shrink: 0;
-}
-
-.kb-row {
-  display: flex;
-  justify-content: center;
-  gap: 5px;
-  margin-bottom: 6px;
-}
-
-.kb-key {
-  background: #fff;
-  border: 1.5px solid var(--gray1);
-  color: var(--text);
-  font-family: var(--font);
-  font-size: clamp(0.75rem, 3.4vw, 0.95rem);
-  font-weight: 800;
-  padding: clamp(10px, 2.8vh, 14px) 0;
-  width: clamp(28px, 8.5vw, 40px);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.1s, transform 0.08s, border-color 0.1s;
-  text-align: center;
-  box-shadow: 0 3px 0 var(--gray1);
-}
-
-.kb-key:hover {
-  background: rgba(5,159,221,0.08);
-  border-color: var(--blue);
-}
-
-.kb-key:active {
-  transform: translateY(2px) scale(0.93);
-  box-shadow: none;
-  background: var(--blue);
-  color: #fff;
-  border-color: var(--blue-dark);
-}
-
-.kb-backspace {
-  width: clamp(38px, 11vw, 54px);
-  background: var(--gray2);
-  color: var(--text-muted);
-  font-size: 1.1rem;
-}
-
-/* =============================================
-   MODAL
-   ============================================= */
-
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(10, 20, 40, 0.55);
-  backdrop-filter: blur(4px);
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-}
-
-.modal-overlay.visible {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.modal-box {
-  background: #fff;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 360px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(5,159,221,0.25), 0 4px 16px rgba(0,0,0,0.12);
-  transform: scale(0.92) translateY(10px);
-  transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
-}
-
-.modal-overlay.visible .modal-box {
-  transform: scale(1) translateY(0);
-}
-
-.modal-header {
-  background: var(--blue);
-  padding: 14px 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.modal-num {
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: rgba(255,255,255,0.9);
-}
-
-.modal-close {
-  background: rgba(255,255,255,0.2);
-  border: 1.5px solid rgba(255,255,255,0.4);
-  color: #fff;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.15s, transform 0.12s;
-}
-
-.modal-close:hover {
-  background: rgba(255,255,255,0.35);
-  transform: rotate(90deg);
-}
-
-.modal-clue {
-  padding: 22px 22px 10px;
-  font-size: clamp(1rem, 4vw, 1.15rem);
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.5;
-  text-align: center;
-}
-
-.modal-ok {
-  display: block;
-  width: calc(100% - 36px);
-  margin: 12px 18px 18px;
-  background: var(--blue);
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  padding: 13px;
-  font-family: var(--font);
-  font-size: 0.95rem;
-  font-weight: 800;
-  cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
-}
-
-.modal-ok:hover { background: var(--blue-dark); }
-.modal-ok:active { transform: scale(0.97); }
-
-/* =============================================
-   RESPONSIVE
-   ============================================= */
-
-@media (max-width: 360px) {
-  .cards-grid { gap: 14px; padding: 16px 14px 32px; }
-  .kb-key { padding: 7px 0; font-size: 0.65rem; }
-}
-
-@media (min-width: 900px) {
-  .game-header { padding: 0 28px; }
-  .clue-panel  { padding: 0 28px; }
-  .keyboard { padding: 8px 10px 16px; }
-  .kb-key { width: 42px; }
-  .kb-backspace { width: 58px; }
-}
-
-/* =============================================
-   LANDSCAPE на телефонах / планшетах
-   max-height: 500px — значит экран горизонтальный и маленький
-   ============================================= */
-
-@media (orientation: landscape) and (max-height: 500px) {
-  /* Игровой экран — два столбца: сетка | вопрос+клавиатура */
-  #game-screen.active {
-    flex-direction: row;
-    align-items: stretch;
-  }
-
-  /* Хедер прячем — заменяем кнопкой Назад поверх */
-  .game-header {
-    display: none;
-  }
-
-  /* Кнопка назад плавающая */
-  .back-btn {
-    position: fixed;
-    top: 6px;
-    left: 8px;
-    z-index: 50;
-    font-size: 0.72rem;
-    padding: 4px 10px;
-  }
-
-  /* Звёзды скрыть в landscape */
-  #game-stars { display: none; }
-
-  /* Сетка — левая половина */
-  .crossword-wrapper {
-    flex: 1 1 0;
-    min-width: 0;
-    min-height: 0;
-    padding: 4px 4px 4px 6px;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Правая панель: вопрос + клавиатура */
-  .game-right {
-    display: flex !important;
-    flex-direction: column;
-    flex: 0 0 auto;
-    width: 55vw;
-    min-width: 220px;
-    max-width: 360px;
-    border-left: 1.5px solid var(--gray1);
-    background: var(--bg);
-  }
-
-  .clue-panel {
-    height: auto;
-    padding: 8px 12px;
-    flex-shrink: 0;
-    border-bottom: 1.5px solid var(--gray1);
-    border-top: none;
-  }
-
-  .clue-text {
-    font-size: 0.78rem;
-    white-space: normal;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .keyboard {
-    flex: 1 1 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 4px 4px 6px;
-  }
-
-  .kb-row { margin-bottom: 3px; gap: 3px; }
 
   .kb-key {
     width: clamp(22px, 6.5vw, 32px);
@@ -875,5 +676,10 @@ body {
   .kb-backspace {
     width: clamp(28px, 8vw, 40px);
     font-size: 0.9rem;
+  }
+
+  /* УБИРАЕМ боковую панель — пусть элементы текут как в портрете */
+  .game-right {
+    display: contents !important;  /* ← возвращаем как в обычном режиме */
   }
 }
