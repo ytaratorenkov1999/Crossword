@@ -12,6 +12,11 @@
 'use strict';
 
 // ─────────────────────────────────────────────
+// Конфигурация
+// ─────────────────────────────────────────────
+const EXIT_URL = '/';   // адрес выхода с главного экрана
+
+// ─────────────────────────────────────────────
 // GridRenderer
 // ─────────────────────────────────────────────
 class GridRenderer {
@@ -240,13 +245,15 @@ class CrosswordApp {
     this.activeWordIndex  = 0;
 
     // DOM refs
-    this.$main     = document.getElementById('main-screen');
-    this.$game     = document.getElementById('game-screen');
-    this.$title    = document.getElementById('game-title');
-    this.$stars    = document.getElementById('game-stars');
-    this.$backBtn  = document.getElementById('back-to-main');
-    this.$closeBtn = document.getElementById('close-main');
-    this.$cards    = document.getElementById('cards-container');
+    this.$main        = document.getElementById('main-screen');
+    this.$game        = document.getElementById('game-screen');
+    this.$title       = document.getElementById('game-title');
+    this.$backBtn     = document.getElementById('back-to-main');
+    this.$closeBtn    = document.getElementById('close-main');
+    this.$cards       = document.getElementById('cards-container');
+    this.$exitOverlay = document.getElementById('exit-modal-overlay');
+    this.$exitNo      = document.getElementById('exit-modal-no');
+    this.$exitYes     = document.getElementById('exit-modal-yes');
 
     // Sub-modules
     this.grid = new GridRenderer(
@@ -283,11 +290,28 @@ class CrosswordApp {
   _init() {
     this._renderCards();
 
+    // Крестик в кроссворде — просто возврат на выбор
     this.$backBtn.addEventListener('click', () => this._showMain());
-    this.$closeBtn.addEventListener('click', () => {
-      if (window.history.length > 1) window.history.back();
-      else window.close();
+
+    // Крестик на главном экране — модальное окно выхода
+    this.$closeBtn.addEventListener('click', () => this._showExitConfirm());
+
+    // Кнопки модалки выхода
+    this.$exitNo.addEventListener('click',  () => this._hideExitConfirm());
+    this.$exitYes.addEventListener('click', () => { window.location.href = EXIT_URL; });
+    this.$exitOverlay.addEventListener('click', e => {
+      if (e.target === this.$exitOverlay) this._hideExitConfirm();
     });
+  }
+
+  _showExitConfirm() {
+    this.$exitOverlay.classList.add('visible');
+    document.body.style.overflow = 'hidden';
+  }
+
+  _hideExitConfirm() {
+    this.$exitOverlay.classList.remove('visible');
+    document.body.style.overflow = '';
   }
 
   // ── Main screen ───────────────────────────
@@ -299,12 +323,12 @@ class CrosswordApp {
       card.className = 'card';
       card.style.animationDelay = `${idx * 0.06}s`;
       card.innerHTML = `
-        <div class="card-grid-preview">${this._miniGrid(cw)}</div>
+        <div class="card-grid-preview">
+          ${this._miniGrid(cw)}
+        </div>
         <div class="card-footer">
-          <div class="card-title">${cw.title}</div>
-          <div class="card-meta">
-            <div class="stars">${this._stars(cw.difficulty)}</div>
-          </div>
+          <div class="card-number">${cw.id}</div>
+          <div class="stars">${this._stars(cw.difficulty)}</div>
         </div>`;
       card.addEventListener('click', () => this._openCrossword(cw));
       this.$cards.appendChild(card);
@@ -336,7 +360,6 @@ class CrosswordApp {
     this.activeCell   = null;
 
     this.$title.textContent = cw.title;
-    this.$stars.innerHTML   = this._stars(cw.difficulty);
     this.cluePanel.clear();
     this.keyboard.render();
     this._showGame();

@@ -25,9 +25,8 @@
   <!-- ЭКРАН КРОССВОРДА -->
   <div id="game-screen" class="screen">
     <div class="game-header" id="game-header">
-      <button class="back-btn" id="back-to-main">← Назад</button>
       <div class="game-title" id="game-title">Кроссворд #1</div>
-      <div class="stars-small" id="game-stars"></div>
+      <button class="game-exit-btn" id="back-to-main" title="Выйти к выбору кроссворда">✕</button>
     </div>
 
     <div class="crossword-wrapper" id="crossword-wrapper">
@@ -41,6 +40,17 @@
         <button class="clue-arrow" id="clue-arrow-right">›</button>
       </div>
       <div class="keyboard" id="keyboard"></div>
+    </div>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО ВЫХОДА (главный экран) -->
+  <div class="modal-overlay" id="exit-modal-overlay">
+    <div class="modal-box">
+      <div class="modal-clue" id="exit-modal-text">Вы хотите покинуть игру?</div>
+      <div class="exit-modal-btns">
+        <button class="modal-cancel" id="exit-modal-no">Нет</button>
+        <button class="modal-ok" id="exit-modal-yes">Да</button>
+      </div>
     </div>
   </div>
 
