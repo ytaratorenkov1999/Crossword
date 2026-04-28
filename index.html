@@ -4,8 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>Кроссворды</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -36,22 +34,19 @@
       <div class="crossword-grid" id="crossword-grid"></div>
     </div>
 
-    <div class="clue-panel" id="clue-panel">
-      <button class="clue-arrow" id="clue-arrow-left">‹</button>
-      <div class="clue-text" id="clue-text"></div>
-      <button class="clue-arrow" id="clue-arrow-right">›</button>
+    <div class="game-right">
+      <div class="clue-panel" id="clue-panel">
+        <button class="clue-arrow" id="clue-arrow-left">‹</button>
+        <div class="clue-text" id="clue-text"></div>
+        <button class="clue-arrow" id="clue-arrow-right">›</button>
+      </div>
+      <div class="keyboard" id="keyboard"></div>
     </div>
-
-    <div class="keyboard" id="keyboard"></div>
   </div>
 
   <!-- МОДАЛЬНОЕ ОКНО -->
   <div class="modal-overlay" id="modal-overlay">
     <div class="modal-box">
-      <div class="modal-header">
-        <span class="modal-num" id="modal-num"></span>
-        <button class="modal-close" id="modal-close">✕</button>
-      </div>
       <div class="modal-clue" id="modal-clue"></div>
       <button class="modal-ok" id="modal-ok">Понятно</button>
     </div>
