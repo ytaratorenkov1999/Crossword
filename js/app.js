@@ -1,31 +1,11 @@
-/* =============================================
-   CROSSWORD APP — class-based architecture
-   =============================================
-   Classes:
-   - GridRenderer   — builds and manages the grid DOM
-   - Keyboard       — renders on-screen keyboard
-   - CluePanel      — clue text + arrow navigation
-   - Modal          — simple modal with clue text
-   - CrosswordApp   — main controller
-   ============================================= */
-
 'use strict';
 
-// ─────────────────────────────────────────────
-// Конфигурация
-// ─────────────────────────────────────────────
-const EXIT_URL = '/';   // адрес выхода с главного экрана
-
-// ─────────────────────────────────────────────
-// GridRenderer
-// ─────────────────────────────────────────────
 class GridRenderer {
   constructor(gridEl, wrapperEl) {
     this.gridEl   = gridEl;
     this.wrapperEl = wrapperEl;
   }
 
-  /** Compute optimal cell size based on wrapper dimensions */
   computeCellSize(rows, cols) {
     const w = this.wrapperEl.clientWidth  - 12;
     const h = this.wrapperEl.clientHeight - 12;
@@ -35,7 +15,6 @@ class GridRenderer {
     return Math.max(20, Math.min(byW, byH, 58));
   }
 
-  /** Render full grid for a crossword, returns wordStartMap */
   render(cw, onCellClick) {
     const rows = cw.grid.length;
     const cols = cw.grid[0].length;
@@ -48,7 +27,6 @@ class GridRenderer {
     this.gridEl.style.gridTemplateRows    = `repeat(${rows}, ${cellSize}px)`;
     this.gridEl.style.gap = '3px';
 
-    // Build word-start lookup
     const wordStartMap = {};
     cw.words.forEach(w => { wordStartMap[`${w.row}-${w.col}`] = w.number; });
 
@@ -86,24 +64,20 @@ class GridRenderer {
     return wordStartMap;
   }
 
-  /** Update a single cell's displayed letter */
   setLetter(row, col, letter) {
     const el = document.getElementById(`cell-${row}-${col}`);
     if (el) el.textContent = letter;
   }
 
-  /** Get a cell element by coordinates */
   getCell(row, col) {
     return this.gridEl.querySelector(`[data-row="${row}"][data-col="${col}"]`);
   }
 
-  /** Clear active-word and active-cursor from all non-correct cells */
   clearHighlights() {
     this.gridEl.querySelectorAll('.gcell.white:not(.correct)')
       .forEach(el => el.classList.remove('active-word', 'active-cursor'));
   }
 
-  /** Mark cells of a word as active (highlight) */
   highlightWord(word) {
     this.clearHighlights();
     for (let i = 0; i < word.length; i++) {
@@ -114,7 +88,6 @@ class GridRenderer {
     }
   }
 
-  /** Set cursor on a specific cell */
   setCursor(row, col) {
     this.gridEl.querySelectorAll('.gcell.active-cursor')
       .forEach(el => el.classList.remove('active-cursor'));
@@ -125,7 +98,6 @@ class GridRenderer {
     }
   }
 
-  /** Lock correct word cells */
   lockWord(word) {
     for (let i = 0; i < word.length; i++) {
       const r = word.direction === 'across' ? word.row       : word.row + i;
@@ -139,9 +111,6 @@ class GridRenderer {
   }
 }
 
-// ─────────────────────────────────────────────
-// Keyboard
-// ─────────────────────────────────────────────
 class Keyboard {
   static ROWS = ['ЙЦУКЕНГШЩЗХ', 'ФЫВАПРОЛДЖЭ', 'ЯЧСМИТЬБЮ'];
 
@@ -178,9 +147,6 @@ class Keyboard {
   }
 }
 
-// ─────────────────────────────────────────────
-// CluePanel
-// ─────────────────────────────────────────────
 class CluePanel {
   constructor({ textEl, arrowLeftEl, arrowRightEl }) {
     this.textEl      = textEl;
@@ -204,9 +170,6 @@ class CluePanel {
   clear() { this.textEl.textContent = ''; }
 }
 
-// ─────────────────────────────────────────────
-// Modal
-// ─────────────────────────────────────────────
 class Modal {
   constructor({ overlayEl, clueEl, okEl }) {
     this.overlayEl = overlayEl;
@@ -231,31 +194,96 @@ class Modal {
   }
 }
 
-// ─────────────────────────────────────────────
-// CrosswordApp — main controller
-// ─────────────────────────────────────────────
+class SoundManager {
+  constructor() {
+    this._ctx = null;
+  }
+
+  _getCtx() {
+    if (!this._ctx) this._ctx = new (window.AudioContext || window.webkitAudioContext)();
+    return this._ctx;
+  }
+
+  // Лёгкий «тик» при нажатии клавиши
+  playTick() {
+    try {
+      const ctx  = this._getCtx();
+      const osc  = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(1200, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.04);
+      gain.gain.setValueAtTime(0.12, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.055);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.06);
+    } catch (e) {}
+  }
+
+  // Короткий «динь» при угаданном слове
+  playWord() {
+    try {
+      const ctx  = this._getCtx();
+      const gain = ctx.createGain();
+      gain.connect(ctx.destination);
+
+      // Два синуса: основной тон + лёгкая гармоника
+      [880, 1320].forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        osc.connect(gain);
+        osc.start(ctx.currentTime + i * 0.03);
+        osc.stop(ctx.currentTime  + i * 0.03 + 0.22);
+      });
+
+      gain.gain.setValueAtTime(0.28, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.32);
+    } catch (e) { /* тихо игнорируем */ }
+  }
+
+  // Победная трель при решении всего кроссворда
+  playWin() {
+    try {
+      const ctx  = this._getCtx();
+      const notes = [523, 659, 784, 1047]; // C5 E5 G5 C6
+      notes.forEach((freq, i) => {
+        const osc  = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        const t = ctx.currentTime + i * 0.13;
+        gain.gain.setValueAtTime(0.001, t);
+        gain.gain.linearRampToValueAtTime(0.3, t + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+        osc.start(t);
+        osc.stop(t + 0.4);
+      });
+    } catch (e) { /* тихо игнорируем */ }
+  }
+}
+
 class CrosswordApp {
   constructor() {
-    // State
     this.currentCrossword = null;
     this.activeWord       = null;
     this.activeCell       = null;
-    this.userAnswers      = {};   // "row-col" → letter
+    this.userAnswers      = {};
     this.correctWords     = new Set();
     this.activeWordIndex  = 0;
+    this.sound = new SoundManager();
 
-    // DOM refs
     this.$main        = document.getElementById('main-screen');
     this.$game        = document.getElementById('game-screen');
     this.$title       = document.getElementById('game-title');
     this.$backBtn     = document.getElementById('back-to-main');
-    this.$closeBtn    = document.getElementById('close-main');
     this.$cards       = document.getElementById('cards-container');
-    this.$exitOverlay = document.getElementById('exit-modal-overlay');
-    this.$exitNo      = document.getElementById('exit-modal-no');
-    this.$exitYes     = document.getElementById('exit-modal-yes');
 
-    // Sub-modules
     this.grid = new GridRenderer(
       document.getElementById('crossword-grid'),
       document.getElementById('crossword-wrapper')
@@ -285,25 +313,11 @@ class CrosswordApp {
     this._init();
   }
 
-  // ── Init ──────────────────────────────────
-
   _init() {
     this._renderCards();
 
-    // Крестик в кроссворде — просто возврат на выбор
     this.$backBtn.addEventListener('click', () => this._showMain());
 
-    // Крестик на главном экране — модальное окно выхода
-    this.$closeBtn.addEventListener('click', () => this._showExitConfirm());
-
-    // Кнопки модалки выхода
-    this.$exitNo.addEventListener('click',  () => this._hideExitConfirm());
-    this.$exitYes.addEventListener('click', () => { window.location.href = EXIT_URL; });
-    this.$exitOverlay.addEventListener('click', e => {
-      if (e.target === this.$exitOverlay) this._hideExitConfirm();
-    });
-
-    // Кнопки модалки победы
     this.$winOverlay  = document.getElementById('win-modal-overlay');
     this.$winSubtitle = document.getElementById('win-subtitle');
     document.getElementById('win-restart').addEventListener('click', () => this._restartCrossword());
@@ -312,18 +326,6 @@ class CrosswordApp {
       this._showMain();
     });
   }
-
-  _showExitConfirm() {
-    this.$exitOverlay.classList.add('visible');
-    document.body.style.overflow = 'hidden';
-  }
-
-  _hideExitConfirm() {
-    this.$exitOverlay.classList.remove('visible');
-    document.body.style.overflow = '';
-  }
-
-  // ── Main screen ───────────────────────────
 
   _renderCards() {
     this.$cards.innerHTML = '';
@@ -352,7 +354,6 @@ class CrosswordApp {
 
   _miniGrid(cw) {
     const rows = cw.grid.length, cols = cw.grid[0].length;
-    // SVG с viewBox — масштабируется на весь контейнер без фиксированных px
     const unit = 10, gap = 2;
     const vbW  = cols * unit + (cols - 1) * gap;
     const vbH  = rows * unit + (rows - 1) * gap;
@@ -370,8 +371,6 @@ class CrosswordApp {
 
     return `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 ${vbW} ${vbH}" preserveAspectRatio="xMidYMid meet" style="display:block">${rects}</svg>`;
   }
-
-  // ── Game screen ───────────────────────────
 
   _openCrossword(cw) {
     this.currentCrossword = cw;
@@ -391,8 +390,6 @@ class CrosswordApp {
     const first = this.currentCrossword.words[0];
     this._setActiveWord(first, first.row, first.col);
   }
-
-  // ── Cell interaction ──────────────────────
 
   _onCellClick(row, col) {
     const cw       = this.currentCrossword;
@@ -433,19 +430,17 @@ class CrosswordApp {
     this._setActiveWord(word, startCell.row, startCell.col);
   }
 
-  // ── Typing ────────────────────────────────
-
   _typeLetter(letter) {
     if (!this.activeCell || !this.activeWord) return;
     const { row, col } = this.activeCell;
     const cellEl = this.grid.getCell(row, col);
 
-    // Если ячейка уже правильная — просто двигаем курсор дальше
     if (cellEl?.classList.contains('correct')) {
       this._moveCursor(1);
       return;
     }
 
+    this.sound.playTick();
     this.userAnswers[`${row}-${col}`] = letter;
     this.grid.setLetter(row, col, letter);
     this._checkAllWordsAtCell(row, col);
@@ -475,32 +470,25 @@ class CrosswordApp {
       ? this.activeCell.col - w.col
       : this.activeCell.row - w.row;
 
-    // Ищем следующую не-correct ячейку в нужном направлении,
-    // перепрыгивая через уже правильно угаданные пересечения
     let newPos = pos + dir;
     while (newPos >= 0 && newPos < w.length) {
       const newRow = w.direction === 'across' ? w.row         : w.row + newPos;
       const newCol = w.direction === 'across' ? w.col + newPos : w.col;
       const cellEl = this.grid.getCell(newRow, newCol);
       if (!cellEl?.classList.contains('correct')) {
-        // Нашли свободную ячейку — ставим курсор сюда
         this.activeCell = { row: newRow, col: newCol };
         this.grid.setCursor(newRow, newCol);
         return;
       }
       newPos += dir;
     }
-    // Все оставшиеся ячейки correct — курсор остаётся на месте
   }
-
-  // ── Answer check ──────────────────────────
 
   _checkWord(word) {
     if (this.correctWords.has(word.number)) return;
     for (let i = 0; i < word.length; i++) {
       const r = word.direction === 'across' ? word.row       : word.row + i;
       const c = word.direction === 'across' ? word.col + i   : word.col;
-      // Ячейка уже correct (пересечение с угаданным словом) — буква верная
       const cellEl = this.grid.getCell(r, c);
       if (cellEl?.classList.contains('correct')) continue;
       const typed    = (this.userAnswers[`${r}-${c}`] || '').toUpperCase();
@@ -510,16 +498,15 @@ class CrosswordApp {
     this.correctWords.add(word.number);
     this.grid.lockWord(word);
 
-    // Проверяем — все ли слова угаданы
     if (this.correctWords.size === this.currentCrossword.words.length) {
-      setTimeout(() => this._showWin(), 400);
+      this.sound.playWord();
+      setTimeout(() => { this.sound.playWin(); this._showWin(); }, 400);
     } else {
-      // Автоматически переходим на следующее нерешённое слово
+      this.sound.playWord();
       setTimeout(() => this._jumpToNextUnsolved(), 300);
     }
   }
 
-  /** Переход к следующему нерешённому слову после текущего */
   _jumpToNextUnsolved() {
     const list = this.currentCrossword.words;
     const total = list.length;
@@ -535,7 +522,6 @@ class CrosswordApp {
     }
   }
 
-  /** Первая не-correct ячейка слова (для позиционирования курсора) */
   _firstFreeCell(word) {
     for (let i = 0; i < word.length; i++) {
       const r = word.direction === 'across' ? word.row       : word.row + i;
@@ -543,13 +529,9 @@ class CrosswordApp {
       const cellEl = this.grid.getCell(r, c);
       if (!cellEl?.classList.contains('correct')) return { row: r, col: c };
     }
-    // Все ячейки correct — возвращаем начало слова
     return { row: word.row, col: word.col };
   }
 
-  /**
-   * Проверяем все слова через ячейку (row, col) — активное и пересекающееся.
-   */
   _checkAllWordsAtCell(row, col) {
     const words = this.currentCrossword.words.filter(
       w => this._wordContainsCell(w, row, col)
@@ -573,8 +555,6 @@ class CrosswordApp {
     this._openCrossword(this.currentCrossword);
   }
 
-  // ── Screen navigation ─────────────────────
-
   _showMain() {
     this.$game.classList.remove('active');
     this.$main.classList.add('active');
@@ -586,7 +566,6 @@ class CrosswordApp {
     this.$game.classList.add('active');
     window.scrollTo({ top: 0 });
 
-    // Double rAF: ensure layout painted before measuring wrapper
     requestAnimationFrame(() => requestAnimationFrame(() => {
       if (!this.currentCrossword) return;
       this.grid.render(this.currentCrossword, (r, c, num) => this._onCellClick(r, c));
@@ -595,14 +574,11 @@ class CrosswordApp {
     }));
   }
 
-  /** Restore letters and correct-word styles after a grid re-render */
   _restoreState() {
-    // Re-draw all typed letters
     for (const [key, letter] of Object.entries(this.userAnswers)) {
       const [r, c] = key.split('-').map(Number);
       this.grid.setLetter(r, c, letter);
     }
-    // Re-lock all correct words
     for (const wordNum of this.correctWords) {
       const word = this.currentCrossword.words.find(w => w.number === wordNum);
       if (word) this.grid.lockWord(word);
@@ -610,13 +586,9 @@ class CrosswordApp {
   }
 }
 
-// ─────────────────────────────────────────────
-// Bootstrap
-// ─────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   const app = new CrosswordApp();
 
-  // Re-render on resize (orientation change etc.)
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);

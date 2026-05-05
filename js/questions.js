@@ -13,14 +13,79 @@ const crosswordsData = [
       ['.','.',' ','.','.','.','.',],
     ],
     words: [
-      {number:1,direction:'down',  row:0,col:1,length:4,clue:'Рубец, след от раны на коже',answer:'ШРАМ'},
-      {number:2,direction:'down',  row:0,col:2,length:4,clue:'Подвижная складка кожи над глазом',answer:'ВЕКО'},
-      {number:3,direction:'across',row:1,col:1,length:4,clue:'Водный поток, впадающий в море или озеро',answer:'РЕКА'},
-      {number:4,direction:'across',row:2,col:0,length:4,clue:'Установленное событие или явление',answer:'ФАКТ'},
-      {number:5,direction:'across',row:3,col:1,length:4,clue:'Большой солёный водоём',answer:'МОРЕ'},
-      {number:6,direction:'down',  row:3,col:3,length:3,clue:'Десятиногий речной житель с клешнями',answer:'РАК'},
-      {number:7,direction:'down',  row:3,col:2,length:4,clue:'Гордая хищная птица — символ силы',answer:'ОРЕЛ'},
-      {number:8,direction:'across',row:4,col:2,length:4,clue:'Обрамление картины или женское имя',answer:'РАМА'},
+      {
+      number:1,
+      direction:'down',
+      row:0,
+      col:1,
+      length:4,
+      clue:'Рубец, след от раны на коже',
+      answer:'ШРАМ'
+      },
+
+      {
+      number:2,
+      direction:'down',
+      row:0,
+      col:2,
+      length:4,
+      clue:'Подвижная складка кожи над глазом',
+      answer:'ВЕКО'
+      },
+      {
+      number:3,
+      direction:'across',
+      row:1,
+      col:1,
+      length:4,
+      clue:'Водный поток, впадающий в море или озеро',
+      answer:'РЕКА'
+      },
+      {
+      number:4,
+      direction:'across',
+      row:2,
+      col:0,
+      length:4,
+      clue:'Установленное событие или явление',
+      answer:'ФАКТ'
+      },
+      {
+      number:5,
+      direction:'across',
+      row:3,
+      col:1,
+      length:4,
+      clue:'Большой солёный водоём',
+      answer:'МОРЕ'
+      },
+      {
+      number:6,
+      direction:'down',
+      row:3,
+      col:3,
+      length:3,
+      clue:'Десятиногий речной житель с клешнями',
+      answer:'РАК'
+      },
+      {
+      number:7,
+      direction:'down',
+      row:3,
+      col:2,
+      length:4,
+      clue:'Гордая хищная птица — символ силы',
+      answer:'ОРЕЛ'
+      },
+      {
+      number:8,
+      direction:'across',
+      row:4,
+      col:2,
+      length:4,
+      clue:'Обрамление картины или женское имя',
+      answer:'РАМА'
+      },
     ]
   },
   {

@@ -110,53 +110,10 @@ body {
   opacity: 0.85;
 }
 
-/* Кнопка «Закрыть» — в потоке хедера на мобильных */
-.close-btn {
-  position: static;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,200,200,0.6);
-  background: rgba(220,60,60,0.22);
-  color: #fff;
-  font-size: 1.1rem;
-  font-weight: 800;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.15s, border-color 0.15s, transform 0.12s;
-  line-height: 1;
-  flex-shrink: 0;
-  touch-action: manipulation;
-  z-index: 30;
-}
 
-.close-btn:hover {
-  background: rgba(220,60,60,0.45);
-  border-color: rgba(255,180,180,0.9);
-  transform: rotate(90deg);
-}
-
-.close-btn:active { transform: scale(0.9) rotate(90deg); }
-
-/* На десктопе — фиксированная позиция справа сверху */
-@media (min-width: 1100px) and (hover: hover) and (pointer: fine) {
-  .close-btn {
-    position: fixed;
-    top: 16px;
-    right: 20px;
-  }
-}
 
 /* =============================================
-   КАРТОЧКИ КРОССВОРДОВ — ПОЛНАЯ АДАПТИВНОСТЬ
-
-   < 380px:   1 колонка
-   380-559px: 2 колонки (узкие)
-   560-699px: 2 колонки (широкие)
-   700-1099px: 3 колонки
-   ≥ 1100px:  3 колонки + увеличенные отступы
+   КАРТОЧКИ КРОССВОРДОВ
    ============================================= */
 
 .cards-grid {
@@ -169,55 +126,6 @@ body {
   margin: 0 auto;
   flex: 1;
   box-sizing: border-box;
-}
-
-/* Ограничиваем ширину карточки при одной колонке */
-@media (max-width: 379px) {
-  .cards-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 14px 20px 28px;
-  }
-}
-
-/* Маленькие телефоны (380-559px) — 2 колонки, компактные */
-@media (min-width: 380px) and (max-width: 559px) {
-  .cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    padding: 14px 12px 28px;
-  }
-  .card { max-width: none; }
-}
-
-/* Средние телефоны (560-699px) — 2 колонки, нормальные отступы */
-@media (min-width: 560px) and (max-width: 699px) {
-  .cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    padding: 18px 16px 32px;
-  }
-  .card { max-width: none; }
-}
-
-/* Планшеты и небольшие десктопы (700-1099px) — 3 колонки */
-@media (min-width: 700px) and (max-width: 1099px) {
-  .cards-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 24px 20px 44px;
-  }
-  .card { max-width: none; }
-}
-
-/* Крупные десктопы (≥ 1100px) — 3 колонки, максимальные отступы */
-@media (min-width: 1100px) {
-  .cards-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    padding: 32px 24px 52px;
-    max-width: 960px;
-  }
 }
 
 .card {
@@ -324,33 +232,34 @@ body {
   padding-bottom: 1px;
 }
 
-/* Кнопка «✕» выхода из кроссворда */
-.game-exit-btn {
-  background: rgba(220,60,60,0.22);
-  border: 2px solid rgba(255,200,200,0.6);
+/* Кнопка «← Назад» из кроссворда */
+.game-back-btn {
+  background: none;
+  border: none;
   color: #fff;
-  font-size: 1.2rem;
-  font-weight: 800;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  cursor: pointer;
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 600;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 4px;
+  padding: 6px 10px 6px 6px;
+  border-radius: 10px;
+  cursor: pointer;
   flex-shrink: 0;
-  transition: background 0.15s, border-color 0.15s, transform 0.12s;
-  line-height: 1;
+  opacity: 0.88;
+  transition: opacity 0.15s, background 0.15s, transform 0.12s;
   touch-action: manipulation;
+  white-space: nowrap;
 }
 
-.game-exit-btn:hover {
-  background: rgba(220,60,60,0.45);
-  border-color: rgba(255,180,180,0.9);
-  transform: rotate(90deg);
+.game-back-btn:hover {
+  opacity: 1;
+  background: rgba(255,255,255,0.15);
+  transform: translateX(-2px);
 }
 
-.game-exit-btn:active { transform: scale(0.9) rotate(90deg); }
+.game-back-btn:active { transform: scale(0.94); opacity: 1; }
 
 /* Название кроссворда */
 .game-title {
@@ -360,7 +269,7 @@ body {
   flex: 1;
   text-align: center;
   color: #fff;
-  padding-left: 44px; /* компенсирует ширину крестика справа, чтобы текст был по центру */
+  padding-right: 80px; /* компенсирует ширину кнопки «← Назад» слева */
 }
 
 /* =============================================
@@ -741,22 +650,121 @@ body {
   margin: 0;
 }
 
+
 /* =============================================
-   АДАПТИВ: МАЛЕНЬКИЕ ЭКРАНЫ (ШИРИНА ≤ 360px)
+   АДАПТАЦИЯ
    ============================================= */
 
+/* ── Очень маленькие экраны (≤ 360px)
+   Карточки и клавиши чуть компактнее
+   ── */
 @media (max-width: 360px) {
   .cards-grid { gap: 12px; padding: 12px 12px 24px; }
   .kb-key { padding: 7px 0; font-size: 0.65rem; }
 }
 
-/* =============================================
-   АДАПТИВ: ПЛАНШЕТЫ (ШИРИНА ≥ 768px)
-   Увеличиваем клавиатуру и подсказку
-   ============================================= */
+/* ── Узкие телефоны (≤ 379px)
+   Одна колонка карточек, уменьшенные отступы
+   ── */
+@media (max-width: 379px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 14px 20px 28px;
+  }
+}
 
+/* ── Маленькие телефоны (380px – 559px)
+   Две колонки карточек, компактные отступы
+   ── */
+@media (min-width: 380px) and (max-width: 559px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 14px 12px 28px;
+  }
+  .card { max-width: none; }
+}
+
+/* ── Средние телефоны (560px – 699px)
+   Две колонки карточек, нормальные отступы
+   ── */
+@media (min-width: 560px) and (max-width: 699px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 18px 16px 32px;
+  }
+  .card { max-width: none; }
+}
+
+/* ── Планшеты и небольшие десктопы (700px – 1099px)
+   Три колонки карточек
+   ── */
+@media (min-width: 700px) and (max-width: 1099px) {
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 24px 20px 44px;
+  }
+  .card { max-width: none; }
+}
+
+/* ── Планшеты в портрете (768px – 1199px, высота ≥ 900px)
+   Крупнее превью карточки, клавиатура и панель подсказки
+   ── */
+@media (min-width: 768px) and (max-width: 1199px) and (min-height: 900px) {
+  .card-grid-preview {
+    min-height: 140px;
+  }
+
+  .clue-panel {
+    height: 58px;
+    padding: 0 24px;
+    gap: 12px;
+  }
+
+  .clue-text {
+    font-size: 1.05rem;
+  }
+
+  .clue-arrow {
+    width: 42px;
+    height: 42px;
+    font-size: 1.7rem;
+  }
+
+  .crossword-wrapper {
+    padding: 10px 16px 6px;
+  }
+
+  .keyboard {
+    padding: 16px 20px 28px;
+  }
+
+  .kb-row {
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .kb-key {
+    width: clamp(44px, 6vw, 62px);
+    font-size: clamp(1rem, 1.6vw, 1.3rem);
+    padding: clamp(14px, 2vh, 20px) 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 0 var(--gray1);
+  }
+
+  .kb-backspace {
+    width: clamp(56px, 8vw, 80px);
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+  }
+}
+
+/* ── Планшеты (≥ 768px)
+   Увеличенная клавиатура и панель подсказки
+   ── */
 @media (min-width: 768px) {
-  /* Подсказка */
   .clue-panel {
     height: 52px;
     padding: 0 20px;
@@ -773,7 +781,6 @@ body {
     font-size: 1.6rem;
   }
 
-  /* Клавиатура */
   .keyboard {
     padding: 12px 16px 20px;
   }
@@ -797,13 +804,29 @@ body {
   }
 }
 
-/* =============================================
-   АДАПТИВ: ДЕСКТОПЫ (ШИРИНА ≥ 1100px)
-   Ещё больше клавиатура и подсказка
-   ============================================= */
-
+/* ── Крупные десктопы (≥ 1100px)
+   Три колонки карточек с максимальными отступами,
+   просторный хедер, крупная клавиатура и подсказка,
+   кнопка «✕» фиксируется в правом верхнем углу экрана
+   ── */
 @media (min-width: 1100px) {
-  /* Подсказка */
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 32px 24px 52px;
+    max-width: 960px;
+  }
+
+  .game-header {
+    height: 72px;
+    padding: 0 24px;
+  }
+
+  .game-title {
+    font-size: 1.3rem;
+    padding-right: 80px;
+  }
+
   .clue-panel {
     height: 60px;
     padding: 0 32px;
@@ -820,7 +843,6 @@ body {
     font-size: 1.8rem;
   }
 
-  /* Клавиатура */
   .keyboard {
     padding: 16px 24px 24px;
   }
@@ -842,37 +864,16 @@ body {
     width: 72px;
     font-size: 1.4rem;
   }
-
-  /* Игровой хедер — просторнее */
-  .game-header {
-    height: 72px;
-    padding: 0 24px;
-  }
-
-  .game-exit-btn {
-    width: 44px;
-    height: 44px;
-    font-size: 1.2rem;
-  }
-
-  .game-title {
-    font-size: 1.3rem;
-    padding-left: 44px;
-  }
 }
 
-/* =============================================
-   АДАПТИВ: ГОРИЗОНТАЛЬНАЯ ОРИЕНТАЦИЯ
-   (телефоны и планшеты с высотой экрана ≤ 700px)
-
-   Главное меню — скроллится, карточки компактнее
-   Игровой экран — строго ВЕРТИКАЛЬНО
-   ============================================= */
-
+/* ── Горизонтальная ориентация (высота ≤ 700px)
+   Главный экран: карточки в три колонки, всё компактнее.
+   Игровой экран: хедер и клавиши минимального размера,
+   сетка занимает всё оставшееся пространство.
+   ── */
 @media (orientation: landscape) and (max-height: 700px) {
 
-  /* === ГЛАВНЫЙ ЭКРАН (карточки) === */
-
+  /* Главный экран */
   #main-screen.active {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -904,23 +905,16 @@ body {
     padding: 8px 10px 10px;
   }
 
-  .card-title {
-    font-size: 0.65rem;
-    margin-bottom: 4px;
-  }
-
   .star {
     font-size: 0.85rem;
   }
 
-  /* === ИГРОВОЙ ЭКРАН === */
-
+  /* Игровой экран */
   #game-screen.active {
     flex-direction: column;
     align-items: stretch;
   }
 
-  /* Хедер — компактный */
   .game-header {
     height: 36px;
     flex-shrink: 0;
@@ -929,16 +923,20 @@ body {
 
   .game-title {
     font-size: 0.75rem;
-    padding-left: 28px;
+    padding-right: 70px;
   }
 
-  .game-exit-btn {
-    width: 26px;
-    height: 26px;
-    font-size: 0.8rem;
+  .game-back-btn {
+    font-size: 0.72rem;
+    padding: 4px 6px 4px 4px;
+    gap: 2px;
   }
 
-  /* Сетка кроссворда — занимает всё оставшееся пространство */
+  .game-back-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
   .crossword-wrapper {
     flex: 1 1 0;
     min-height: 0;
@@ -946,7 +944,6 @@ body {
     overflow: hidden;
   }
 
-  /* Панель подсказки — максимально компактная */
   .clue-panel {
     height: 30px;
     min-height: 30px;
@@ -970,7 +967,6 @@ body {
     border-radius: 5px;
   }
 
-  /* Клавиатура — под подсказкой */
   .keyboard {
     padding: 2px 4px 5px;
     flex-shrink: 0;
@@ -996,58 +992,5 @@ body {
 
   .game-right {
     display: contents !important;
-  }
-}
-
-/* =============================================
-   АДАПТИВ: ПЛАНШЕТЫ В ПОРТРЕТЕ (768px–1199px, высота ≥ 900px)
-   Клавиатура крупнее, ближе к содержимому
-   ============================================= */
-
-@media (min-width: 768px) and (max-width: 1199px) and (min-height: 900px) {
-  .card-grid-preview {
-    min-height: 140px;
-  }
-
-  .keyboard {
-    padding: 16px 20px 28px;
-  }
-
-  .kb-row {
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-
-  .kb-key {
-    width: clamp(44px, 6vw, 62px);
-    font-size: clamp(1rem, 1.6vw, 1.3rem);
-    padding: clamp(14px, 2vh, 20px) 0;
-    border-radius: 12px;
-    box-shadow: 0 4px 0 var(--gray1);
-  }
-
-  .kb-backspace {
-    width: clamp(56px, 8vw, 80px);
-    font-size: clamp(1.2rem, 2vw, 1.5rem);
-  }
-
-  .clue-panel {
-    height: 58px;
-    padding: 0 24px;
-    gap: 12px;
-  }
-
-  .clue-text {
-    font-size: 1.05rem;
-  }
-
-  .clue-arrow {
-    width: 42px;
-    height: 42px;
-    font-size: 1.7rem;
-  }
-
-  .crossword-wrapper {
-    padding: 10px 16px 6px;
   }
 }
