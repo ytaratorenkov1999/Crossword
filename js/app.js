@@ -417,7 +417,8 @@ class CrosswordApp {
     const list = this.currentCrossword.words;
     this.activeWordIndex = (this.activeWordIndex + dir + list.length) % list.length;
     const word = list[this.activeWordIndex];
-    this._setActiveWord(word, word.row, word.col);
+    const startCell = this._firstFreeCell(word);
+    this._setActiveWord(word, startCell.row, startCell.col);
   }
 
   // ── Typing ────────────────────────────────
@@ -435,7 +436,7 @@ class CrosswordApp {
 
     this.userAnswers[`${row}-${col}`] = letter;
     this.grid.setLetter(row, col, letter);
-    this._checkWord(this.activeWord);
+    this._checkAllWordsAtCell(row, col);
     this._moveCursor(1);
   }
 
@@ -487,6 +488,9 @@ class CrosswordApp {
     for (let i = 0; i < word.length; i++) {
       const r = word.direction === 'across' ? word.row       : word.row + i;
       const c = word.direction === 'across' ? word.col + i   : word.col;
+      // Ячейка уже correct (пересечение с угаданным словом) — буква верная
+      const cellEl = this.grid.getCell(r, c);
+      if (cellEl?.classList.contains('correct')) continue;
       const typed    = (this.userAnswers[`${r}-${c}`] || '').toUpperCase();
       const expected = (word.answer[i] || '').toUpperCase();
       if (!typed || typed !== expected) return;
@@ -512,10 +516,33 @@ class CrosswordApp {
       const idx = (startIdx + i) % total;
       const candidate = list[idx];
       if (!this.correctWords.has(candidate.number)) {
-        this._setActiveWord(candidate, candidate.row, candidate.col);
+        const startCell = this._firstFreeCell(candidate);
+        this._setActiveWord(candidate, startCell.row, startCell.col);
         return;
       }
     }
+  }
+
+  /** Первая не-correct ячейка слова (для позиционирования курсора) */
+  _firstFreeCell(word) {
+    for (let i = 0; i < word.length; i++) {
+      const r = word.direction === 'across' ? word.row       : word.row + i;
+      const c = word.direction === 'across' ? word.col + i   : word.col;
+      const cellEl = this.grid.getCell(r, c);
+      if (!cellEl?.classList.contains('correct')) return { row: r, col: c };
+    }
+    // Все ячейки correct — возвращаем начало слова
+    return { row: word.row, col: word.col };
+  }
+
+  /**
+   * Проверяем все слова через ячейку (row, col) — активное и пересекающееся.
+   */
+  _checkAllWordsAtCell(row, col) {
+    const words = this.currentCrossword.words.filter(
+      w => this._wordContainsCell(w, row, col)
+    );
+    words.forEach(w => this._checkWord(w));
   }
 
   _showWin() {

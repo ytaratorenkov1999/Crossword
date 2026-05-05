@@ -197,8 +197,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100px;
-  flex: 1;
+  /* Фиксированная высота — не зависит от содержимого */
+  height: 140px;
+  flex-shrink: 0;
 }
 
 /* Номер кроссворда — синий круг в футере */
@@ -229,9 +230,12 @@ body {
   grid-template-columns: repeat(var(--cols), 1fr);
   grid-template-rows: repeat(var(--rows), 1fr);
   gap: 2px;
-  width: 100%;
-  max-width: 120px;
+  /* Занимаем всё пространство preview-блока по высоте,
+     ширина считается автоматически через grid */
+  height: 100%;
+  width: auto;
   aspect-ratio: var(--cols) / var(--rows);
+  max-height: 112px;
 }
 
 .mini-cell { border-radius: 2px; }
@@ -262,8 +266,8 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 0 12px;
-  height: 52px;
+  padding: 0 16px;
+  height: 72px;
   background: var(--blue);
   flex-shrink: 0;
   box-shadow: 0 2px 12px rgba(5,159,221,0.3);
@@ -272,12 +276,12 @@ body {
 /* Кнопка «✕» выхода из кроссворда */
 .game-exit-btn {
   background: rgba(255,255,255,0.18);
-  border: 1.5px solid rgba(255,255,255,0.5);
+  border: 2px solid rgba(255,255,255,0.5);
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 800;
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -286,6 +290,7 @@ body {
   flex-shrink: 0;
   transition: background 0.15s, border-color 0.15s, transform 0.12s;
   line-height: 1;
+  touch-action: manipulation;
 }
 
 .game-exit-btn:hover {
@@ -299,12 +304,12 @@ body {
 /* Название кроссворда */
 .game-title {
   font-family: var(--font-display);
-  font-size: clamp(0.7rem, 3vw, 0.9rem);
+  font-size: clamp(1rem, 3.5vw, 1.3rem);
   font-weight: 700;
   flex: 1;
   text-align: center;
   color: #fff;
-  padding-left: 34px; /* компенсирует ширину крестика справа, чтобы текст был по центру */
+  padding-left: 44px; /* компенсирует ширину крестика справа, чтобы текст был по центру */
 }
 
 /* =============================================
@@ -789,19 +794,19 @@ body {
 
   /* Игровой хедер — просторнее */
   .game-header {
-    height: 60px;
+    height: 72px;
     padding: 0 24px;
   }
 
   .game-exit-btn {
-    width: 38px;
-    height: 38px;
-    font-size: 1.1rem;
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
   }
 
   .game-title {
-    font-size: 1.1rem;
-    padding-left: 38px;
+    font-size: 1.3rem;
+    padding-left: 44px;
   }
 }
 
@@ -840,6 +845,7 @@ body {
 
   .card-grid-preview {
     padding: 8px;
+    height: 100px;
   }
 
   .card-footer {
@@ -947,6 +953,14 @@ body {
    ============================================= */
 
 @media (min-width: 768px) and (max-width: 1199px) and (min-height: 900px) {
+  .card-grid-preview {
+    height: 180px;
+  }
+
+  .mini-grid {
+    max-height: 152px;
+  }
+
   .keyboard {
     padding: 16px 20px 28px;
   }
