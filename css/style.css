@@ -225,22 +225,12 @@ body {
   box-shadow: 0 4px 12px rgba(5,159,221,0.55);
 }
 
-.mini-grid {
-  display: grid;
-  grid-template-columns: repeat(var(--cols), 1fr);
-  grid-template-rows: repeat(var(--rows), 1fr);
-  gap: 2px;
-  /* Занимаем всё пространство preview-блока по высоте,
-     ширина считается автоматически через grid */
-  height: 100%;
-  width: auto;
-  aspect-ratio: var(--cols) / var(--rows);
+/* Превью кроссворда — SVG рендерится напрямую, дополнительных стилей не требуется */
+.card-grid-preview svg {
+  display: block;
+  max-width: 100%;
   max-height: 112px;
 }
-
-.mini-cell { border-radius: 2px; }
-.mini-cell.black { background: #a0a2a8; }
-.mini-cell.white { background: #fff; border: 1px solid #d0d1d4; }
 
 /* Нижняя часть карточки — номер и звёзды по центру колонкой */
 .card-footer {
@@ -957,7 +947,7 @@ body {
     height: 180px;
   }
 
-  .mini-grid {
+  .card-grid-preview svg {
     max-height: 152px;
   }
 

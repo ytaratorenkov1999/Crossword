@@ -352,11 +352,25 @@ class CrosswordApp {
 
   _miniGrid(cw) {
     const rows = cw.grid.length, cols = cw.grid[0].length;
-    let h = `<div class="mini-grid" style="--cols:${cols};--rows:${rows}">`;
-    cw.grid.forEach(row => row.forEach(cell =>
-      h += `<div class="mini-cell ${cell === '.' ? 'black' : 'white'}"></div>`
-    ));
-    return h + '</div>';
+    // Используем SVG для максимальной совместимости (в т.ч. Qt WebEngine / ОС Аврора)
+    const gap  = 2;
+    const size = Math.min(Math.floor((112 - gap * (cols - 1)) / cols),
+                          Math.floor((112 - gap * (rows - 1)) / rows));
+    const svgW = cols * size + gap * (cols - 1);
+    const svgH = rows * size + gap * (rows - 1);
+
+    let rects = '';
+    cw.grid.forEach((row, r) => {
+      row.forEach((cell, c) => {
+        const x = c * (size + gap);
+        const y = r * (size + gap);
+        const fill   = cell === '.' ? '#a0a2a8' : '#ffffff';
+        const stroke = cell === '.' ? 'none'    : '#d0d1d4';
+        rects += `<rect x="${x}" y="${y}" width="${size}" height="${size}" rx="2" ry="2" fill="${fill}" stroke="${stroke}" stroke-width="1"/>`;
+      });
+    });
+
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}" style="display:block">${rects}</svg>`;
   }
 
   // ── Game screen ───────────────────────────
