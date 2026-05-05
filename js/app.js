@@ -302,6 +302,15 @@ class CrosswordApp {
     this.$exitOverlay.addEventListener('click', e => {
       if (e.target === this.$exitOverlay) this._hideExitConfirm();
     });
+
+    // Кнопки модалки победы
+    this.$winOverlay  = document.getElementById('win-modal-overlay');
+    this.$winSubtitle = document.getElementById('win-subtitle');
+    document.getElementById('win-restart').addEventListener('click', () => this._restartCrossword());
+    document.getElementById('win-choose').addEventListener('click',  () => {
+      this._hideWin();
+      this._showMain();
+    });
   }
 
   _showExitConfirm() {
@@ -417,7 +426,12 @@ class CrosswordApp {
     if (!this.activeCell || !this.activeWord) return;
     const { row, col } = this.activeCell;
     const cellEl = this.grid.getCell(row, col);
-    if (cellEl?.classList.contains('correct')) return;
+
+    // Если ячейка уже правильная — просто двигаем курсор дальше
+    if (cellEl?.classList.contains('correct')) {
+      this._moveCursor(1);
+      return;
+    }
 
     this.userAnswers[`${row}-${col}`] = letter;
     this.grid.setLetter(row, col, letter);
@@ -442,18 +456,28 @@ class CrosswordApp {
 
   _moveCursor(dir) {
     if (!this.activeWord || !this.activeCell) return;
-    const w   = this.activeWord;
-    const pos = w.direction === 'across'
+    const w = this.activeWord;
+
+    let pos = w.direction === 'across'
       ? this.activeCell.col - w.col
       : this.activeCell.row - w.row;
-    const newPos = pos + dir;
-    if (newPos < 0 || newPos >= w.length) return;
 
-    const newRow = w.direction === 'across' ? w.row           : w.row + newPos;
-    const newCol = w.direction === 'across' ? w.col + newPos  : w.col;
-
-    this.activeCell = { row: newRow, col: newCol };
-    this.grid.setCursor(newRow, newCol);
+    // Ищем следующую не-correct ячейку в нужном направлении,
+    // перепрыгивая через уже правильно угаданные пересечения
+    let newPos = pos + dir;
+    while (newPos >= 0 && newPos < w.length) {
+      const newRow = w.direction === 'across' ? w.row         : w.row + newPos;
+      const newCol = w.direction === 'across' ? w.col + newPos : w.col;
+      const cellEl = this.grid.getCell(newRow, newCol);
+      if (!cellEl?.classList.contains('correct')) {
+        // Нашли свободную ячейку — ставим курсор сюда
+        this.activeCell = { row: newRow, col: newCol };
+        this.grid.setCursor(newRow, newCol);
+        return;
+      }
+      newPos += dir;
+    }
+    // Все оставшиеся ячейки correct — курсор остаётся на месте
   }
 
   // ── Answer check ──────────────────────────
@@ -469,6 +493,45 @@ class CrosswordApp {
     }
     this.correctWords.add(word.number);
     this.grid.lockWord(word);
+
+    // Проверяем — все ли слова угаданы
+    if (this.correctWords.size === this.currentCrossword.words.length) {
+      setTimeout(() => this._showWin(), 400);
+    } else {
+      // Автоматически переходим на следующее нерешённое слово
+      setTimeout(() => this._jumpToNextUnsolved(), 300);
+    }
+  }
+
+  /** Переход к следующему нерешённому слову после текущего */
+  _jumpToNextUnsolved() {
+    const list = this.currentCrossword.words;
+    const total = list.length;
+    const startIdx = this.activeWordIndex;
+    for (let i = 1; i < total; i++) {
+      const idx = (startIdx + i) % total;
+      const candidate = list[idx];
+      if (!this.correctWords.has(candidate.number)) {
+        this._setActiveWord(candidate, candidate.row, candidate.col);
+        return;
+      }
+    }
+  }
+
+  _showWin() {
+    this.$winSubtitle.textContent = `«${this.currentCrossword.title}» решён!`;
+    this.$winOverlay.classList.add('visible');
+    document.body.style.overflow = 'hidden';
+  }
+
+  _hideWin() {
+    this.$winOverlay.classList.remove('visible');
+    document.body.style.overflow = '';
+  }
+
+  _restartCrossword() {
+    this._hideWin();
+    this._openCrossword(this.currentCrossword);
   }
 
   // ── Screen navigation ─────────────────────
@@ -488,8 +551,23 @@ class CrosswordApp {
     requestAnimationFrame(() => requestAnimationFrame(() => {
       if (!this.currentCrossword) return;
       this.grid.render(this.currentCrossword, (r, c, num) => this._onCellClick(r, c));
+      this._restoreState();
       this._activateFirstWord();
     }));
+  }
+
+  /** Restore letters and correct-word styles after a grid re-render */
+  _restoreState() {
+    // Re-draw all typed letters
+    for (const [key, letter] of Object.entries(this.userAnswers)) {
+      const [r, c] = key.split('-').map(Number);
+      this.grid.setLetter(r, c, letter);
+    }
+    // Re-lock all correct words
+    for (const wordNum of this.correctWords) {
+      const word = this.currentCrossword.words.find(w => w.number === wordNum);
+      if (word) this.grid.lockWord(word);
+    }
   }
 }
 
@@ -510,6 +588,7 @@ document.addEventListener('DOMContentLoaded', () => {
         app.currentCrossword,
         (r, c) => app._onCellClick(r, c)
       );
+      app._restoreState();
       if (app.activeWord) {
         app._setActiveWord(app.activeWord, app.activeCell.row, app.activeCell.col);
       }

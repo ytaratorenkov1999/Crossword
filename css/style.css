@@ -73,7 +73,7 @@ body {
 .header {
   background: var(--blue);
   padding: 0 20px;
-  height: 60px;
+  height: 72px;
   display: flex;
   align-items: center;
   position: sticky;
@@ -96,32 +96,32 @@ body {
 .logo {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(0.9rem, 3.5vw, 1.15rem);
+  font-size: clamp(1.1rem, 4vw, 1.4rem);
   color: #fff;
   letter-spacing: -0.3px;
 }
 
 .logo-icon {
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   opacity: 0.85;
 }
 
 /* Кнопка «Закрыть» — фиксирована в правом верхнем углу */
 .close-btn {
   position: fixed;
-  top: 12px;
-  right: 14px;
+  top: 14px;
+  right: 16px;
   z-index: 999;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 2px solid rgba(255,255,255,0.5);
   background: rgba(255,255,255,0.15);
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 800;
   cursor: pointer;
   display: flex;
@@ -173,6 +173,8 @@ body {
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   animation: fadeUp 0.4s ease both;
   box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
@@ -195,6 +197,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 100px;
+  flex: 1;
 }
 
 /* Номер кроссворда — синий круг в футере */
@@ -226,7 +230,7 @@ body {
   grid-template-rows: repeat(var(--rows), 1fr);
   gap: 2px;
   width: 100%;
-  /* высота задаётся через aspect-ratio по реальным пропорциям сетки */
+  max-width: 120px;
   aspect-ratio: var(--cols) / var(--rows);
 }
 
@@ -460,6 +464,7 @@ body {
   transition: background 0.12s, transform 0.1s;
   flex-shrink: 0;
   padding-bottom: 1px;
+  touch-action: manipulation;
 }
 
 .clue-arrow:hover  { background: rgba(5,159,221,0.22); }
@@ -474,6 +479,7 @@ body {
   background: var(--gray2);
   border-top: 1px solid var(--gray1);
   flex-shrink: 0;
+  touch-action: manipulation;
 }
 
 /* Строка клавиш */
@@ -499,6 +505,9 @@ body {
   transition: background 0.1s, transform 0.08s, border-color 0.1s;
   text-align: center;
   box-shadow: 0 3px 0 var(--gray1);
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .kb-key:hover {
@@ -621,6 +630,60 @@ body {
 
 .modal-cancel:hover  { background: var(--gray1); }
 .modal-cancel:active { transform: scale(0.97); }
+
+/* =============================================
+   МОДАЛЬНОЕ ОКНО ПОБЕДЫ
+   ============================================= */
+
+.win-modal-box {
+  text-align: center;
+  padding-bottom: 4px;
+}
+
+.win-emoji {
+  font-size: 3.2rem;
+  margin: 28px 0 10px;
+  animation: winBounce 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+  display: block;
+}
+
+@keyframes winBounce {
+  from { transform: scale(0.3); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.win-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 5vw, 1.6rem);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.win-subtitle {
+  font-size: clamp(0.85rem, 3vw, 0.95rem);
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  padding: 0 20px;
+  line-height: 1.4;
+}
+
+.win-modal-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 16px 20px;
+}
+
+.win-btn-restart {
+  width: 100%;
+  margin: 0;
+}
+
+.win-btn-choose {
+  width: 100%;
+  margin: 0;
+}
 
 /* =============================================
    АДАПТИВ: МАЛЕНЬКИЕ ЭКРАНЫ (ШИРИНА ≤ 360px)
