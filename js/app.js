@@ -352,25 +352,23 @@ class CrosswordApp {
 
   _miniGrid(cw) {
     const rows = cw.grid.length, cols = cw.grid[0].length;
-    // Используем SVG для максимальной совместимости (в т.ч. Qt WebEngine / ОС Аврора)
-    const gap  = 2;
-    const size = Math.min(Math.floor((112 - gap * (cols - 1)) / cols),
-                          Math.floor((112 - gap * (rows - 1)) / rows));
-    const svgW = cols * size + gap * (cols - 1);
-    const svgH = rows * size + gap * (rows - 1);
+    // SVG с viewBox — масштабируется на весь контейнер без фиксированных px
+    const unit = 10, gap = 2;
+    const vbW  = cols * unit + (cols - 1) * gap;
+    const vbH  = rows * unit + (rows - 1) * gap;
 
     let rects = '';
     cw.grid.forEach((row, r) => {
       row.forEach((cell, c) => {
-        const x = c * (size + gap);
-        const y = r * (size + gap);
+        const x = c * (unit + gap);
+        const y = r * (unit + gap);
         const fill   = cell === '.' ? '#a0a2a8' : '#ffffff';
         const stroke = cell === '.' ? 'none'    : '#d0d1d4';
-        rects += `<rect x="${x}" y="${y}" width="${size}" height="${size}" rx="2" ry="2" fill="${fill}" stroke="${stroke}" stroke-width="1"/>`;
+        rects += `<rect x="${x}" y="${y}" width="${unit}" height="${unit}" rx="1.5" ry="1.5" fill="${fill}" stroke="${stroke}" stroke-width="0.8"/>`;
       });
     });
 
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}" style="display:block">${rects}</svg>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 ${vbW} ${vbH}" preserveAspectRatio="xMidYMid meet" style="display:block">${rects}</svg>`;
   }
 
   // ── Game screen ───────────────────────────
