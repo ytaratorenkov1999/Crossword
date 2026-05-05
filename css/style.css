@@ -655,23 +655,47 @@ body {
    АДАПТАЦИЯ
    ============================================= */
 
-/* ── Очень маленькие экраны (≤ 360px)
-   Карточки и клавиши чуть компактнее
-   ── */
-@media (max-width: 360px) {
-  .cards-grid { gap: 12px; padding: 12px 12px 24px; }
-  .kb-key { padding: 7px 0; font-size: 0.65rem; }
-}
-
 /* ── Узкие телефоны (≤ 379px)
-   Одна колонка карточек, уменьшенные отступы
+   Одна колонка, карточка фиксированной ширины как на 379px
    ── */
 @media (max-width: 379px) {
   .cards-grid {
     grid-template-columns: 1fr;
     gap: 16px;
-    padding: 14px 20px 28px;
+    padding: 14px 28px 28px; /* боковые отступы 28px вместо 20px */
+    max-width: 379px;
+    box-sizing: border-box;
   }
+
+  .card {
+    max-width: 323px; /* 379 - 28*2 */
+    width: 100%;
+  }
+
+  /* Футер крупнее — превью визуально чуть меньше */
+  .card-footer {
+    padding: 12px 12px 14px;
+    gap: 6px;
+  }
+
+  /* Номер крупнее */
+  .card-number {
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+
+  /* Звёзды крупнее */
+  .star {
+    font-size: 1.2rem;
+  }
+}
+
+/* ── Очень маленькие экраны (≤ 360px)
+   Клавиши чуть компактнее, карточка держит те же пропорции
+   ── */
+@media (max-width: 360px) {
+  .kb-key { padding: 7px 0; font-size: 0.65rem; }
 }
 
 /* ── Маленькие телефоны (380px – 559px)
