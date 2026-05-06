@@ -201,6 +201,7 @@ class SoundManager {
 
   _getCtx() {
     if (!this._ctx) this._ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (this._ctx.state === 'suspended') this._ctx.resume();
     return this._ctx;
   }
 
@@ -266,6 +267,46 @@ class SoundManager {
       });
     } catch (e) { /* тихо игнорируем */ }
   }
+
+  // Щелчок мыши при выборе карточки
+  playSelect() {
+    try {
+      const ctx = this._getCtx();
+
+      // Основной тон — быстрое падение частоты
+      const osc = ctx.createOscillator();
+      const oscGain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(1800, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.025);
+      oscGain.gain.setValueAtTime(0.5, ctx.currentTime);
+      oscGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.025);
+      osc.connect(oscGain);
+      oscGain.connect(ctx.destination);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.03);
+
+      // Микровсплеск шума — щелчок в начале
+      const bufSize = Math.floor(ctx.sampleRate * 0.008);
+      const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1);
+      const noise = ctx.createBufferSource();
+      noise.buffer = buf;
+      const noiseFilter = ctx.createBiquadFilter();
+      noiseFilter.type = 'bandpass';
+      noiseFilter.frequency.value = 3000;
+      noiseFilter.Q.value = 0.8;
+      const noiseGain = ctx.createGain();
+      noiseGain.gain.setValueAtTime(0.4, ctx.currentTime);
+      noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.008);
+      noise.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(ctx.destination);
+      noise.start(ctx.currentTime);
+      noise.stop(ctx.currentTime + 0.01);
+    } catch (e) {}
+  }
 }
 
 class CrosswordApp {
@@ -330,20 +371,53 @@ class CrosswordApp {
   _renderCards() {
     this.$cards.innerHTML = '';
     crosswordsData.forEach((cw, idx) => {
+      const svgId = `mg-${idx}`;
       const card = document.createElement('div');
       card.className = 'card';
       card.style.animationDelay = `${idx * 0.06}s`;
       card.innerHTML = `
         <div class="card-grid-preview">
-          ${this._miniGrid(cw)}
+          ${this._miniGrid(cw, svgId)}
         </div>
         <div class="card-footer">
           <div class="card-number">${cw.id}</div>
-          <div class="stars">${this._stars(cw.difficulty)}</div>
+          <div class="difficulty-block">
+            <span class="difficulty-label">Сложность:</span>
+            <div class="stars">${this._stars(cw.difficulty)}</div>
+          </div>
         </div>`;
-      card.addEventListener('click', () => this._openCrossword(cw));
+      card.addEventListener('click', () => { this.sound.playSelect(); this._animateCardOpen(svgId, cw); });
       this.$cards.appendChild(card);
     });
+  }
+
+  _animateCardOpen(svgId, cw) {
+    const svg = document.getElementById(svgId);
+    if (!svg) { this._openCrossword(cw); return; }
+
+    const whites = [...svg.querySelectorAll('rect[id]')];
+    if (!whites.length) { this._openCrossword(cw); return; }
+
+    const shuffled = whites.sort(() => Math.random() - 0.5);
+    const step = Math.min(30, Math.floor(380 / shuffled.length));
+
+    shuffled.forEach((rect, i) => {
+      setTimeout(() => {
+        rect.setAttribute('fill', '#059fdd');
+        rect.setAttribute('stroke', '#0480b3');
+      }, i * step);
+    });
+
+    // Сбрасываем обратно в белый сразу после завершения заполнения
+    const resetAt = shuffled.length * step + 60;
+    setTimeout(() => {
+      whites.forEach(rect => {
+        rect.setAttribute('fill', '#ffffff');
+        rect.setAttribute('stroke', '#d0d1d4');
+      });
+    }, resetAt);
+
+    setTimeout(() => this._openCrossword(cw), resetAt + 40);
   }
 
   _stars(n) {
@@ -352,24 +426,26 @@ class CrosswordApp {
     ).join('');
   }
 
-  _miniGrid(cw) {
+  _miniGrid(cw, svgId) {
     const rows = cw.grid.length, cols = cw.grid[0].length;
     const unit = 10, gap = 2;
     const vbW  = cols * unit + (cols - 1) * gap;
     const vbH  = rows * unit + (rows - 1) * gap;
 
     let rects = '';
+    let wi = 0;
     cw.grid.forEach((row, r) => {
       row.forEach((cell, c) => {
         const x = c * (unit + gap);
         const y = r * (unit + gap);
         const fill   = cell === '.' ? '#a0a2a8' : '#ffffff';
         const stroke = cell === '.' ? 'none'    : '#d0d1d4';
-        rects += `<rect x="${x}" y="${y}" width="${unit}" height="${unit}" rx="1.5" ry="1.5" fill="${fill}" stroke="${stroke}" stroke-width="0.8"/>`;
+        const idAttr = cell !== '.' ? ` id="${svgId}-w${wi++}"` : '';
+        rects += `<rect${idAttr} x="${x}" y="${y}" width="${unit}" height="${unit}" rx="1.5" ry="1.5" fill="${fill}" stroke="${stroke}" stroke-width="0.8"/>`;
       });
     });
 
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 ${vbW} ${vbH}" preserveAspectRatio="xMidYMid meet" style="display:block">${rects}</svg>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" id="${svgId}" width="100%" height="100%" viewBox="0 0 ${vbW} ${vbH}" preserveAspectRatio="xMidYMid meet" style="display:block">${rects}</svg>`;
   }
 
   _openCrossword(cw) {

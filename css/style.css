@@ -209,6 +209,23 @@ body {
   box-shadow: 0 4px 12px rgba(5,159,221,0.55);
 }
 
+.difficulty-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.difficulty-label {
+  font-family: var(--font);
+  font-size: clamp(0.6rem, 1.6vw, 0.72rem);
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
 .stars { display: flex; gap: 3px; }
 .star { font-size: clamp(0.85rem, 2.5vw, 1.05rem); transition: transform 0.15s; }
 .star.filled  { color: var(--star-on); }
