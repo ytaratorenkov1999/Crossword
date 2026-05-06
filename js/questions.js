@@ -1,7 +1,7 @@
 const crosswordsData = [
   {
     id: 1,
-    title: 'Кроссворд #1',
+    title: 'Кроссворд №1',
     difficulty: 1,
     grid: [
       ['.','1','2','.','.','.','.'],
@@ -90,7 +90,7 @@ const crosswordsData = [
   },
   {
     id: 2,
-    title: 'Кроссворд #2',
+    title: 'Кроссворд №2',
     difficulty: 1,
     grid: [
       ['1',' ',' ','.','.'],
@@ -110,7 +110,7 @@ const crosswordsData = [
   },
   {
     id: 3,
-    title: 'Кроссворд #3',
+    title: 'Кроссворд №3',
     difficulty: 1,
     grid: [
       ['1',' ',' ','.','.'],
@@ -129,7 +129,7 @@ const crosswordsData = [
   },
   {
     id: 4,
-    title: 'Кроссворд #4',
+    title: 'Кроссворд №4',
     difficulty: 2,
     grid: [
       ['1',' ',' ',' ','.','2',' ',' '],
@@ -152,7 +152,7 @@ const crosswordsData = [
   },
   {
     id: 5,
-    title: 'Кроссворд #5',
+    title: 'Кроссворд №5',
     difficulty: 2,
     grid: [
       ['.','1',' ',' ',' ',' ','.'],
@@ -174,7 +174,7 @@ const crosswordsData = [
   },
   {
     id: 6,
-    title: 'Кроссворд #6',
+    title: 'Кроссворд №6',
     difficulty: 2,
     grid: [
       ['1',' ',' ',' ',' ','.'],
@@ -196,7 +196,7 @@ const crosswordsData = [
   },
   {
     id: 7,
-    title: 'Кроссворд #7',
+    title: 'Кроссворд №7',
     difficulty: 3,
     grid: [
       ['1',' ',' ',' ',' ',' ','.','2',' '],
@@ -224,7 +224,7 @@ const crosswordsData = [
   },
   {
     id: 8,
-    title: 'Кроссворд #8',
+    title: 'Кроссворд №8',
     difficulty: 3,
     grid: [
       ['.','1',' ',' ',' ',' ',' ','.','.'],
@@ -253,7 +253,7 @@ const crosswordsData = [
   },
   {
     id: 9,
-    title: 'Кроссворд #9',
+    title: 'Кроссворд №9',
     difficulty: 3,
     grid: [
       ['1',' ',' ',' ',' ','.','2',' ',' '],
@@ -282,7 +282,7 @@ const crosswordsData = [
   },
   {
     id: 10,
-    title: 'Кроссворд #10',
+    title: 'Кроссворд №10',
     difficulty: 3,
     grid: [
       ['.','1',' ',' ',' ',' ',' ','.'],
