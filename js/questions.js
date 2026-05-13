@@ -3,89 +3,101 @@ const crosswordsData = [
     id: 1,
     title: 'Кроссворд №1',
     difficulty: 1,
+    // Сетка 6×6:
+    // .  К  А  М  Ы  Ш
+    // .  А  .  А  .  К
+    // .  Р  .  М  .  О
+    // М  Е  Т  А  Л  Л
+    // .  Т  .  .  .  А
+    // Б  А  Л  Е  Т  .
     grid: [
-      ['.','1','2','.','.','.','.'],
-      ['.','3',' ',' ',' ','.','.'],
-      ['4',' ',' ',' ','.','.','.'],
-      ['.','5','7','6',' ','.','.'],
-      ['.','.','8',' ',' ',' ','.'],
-      ['.','.', ' ',' ','.','.','.'],
-      ['.','.',' ','.','.','.','.',],
+      ['.', ' ', ' ', ' ', ' ', ' '],
+      ['.', ' ', '.', ' ', '.', ' '],
+      ['.', ' ', '.', ' ', '.', ' '],
+      [' ', ' ', ' ', ' ', ' ', ' '],
+      ['.', ' ', '.', '.', '.', ' '],
+      [' ', ' ', ' ', ' ', ' ', '.'],
     ],
     words: [
       {
-      number:1,
-      direction:'down',
-      row:0,
-      col:1,
-      length:4,
-      clue:'Рубец, след от раны на коже',
-      answer:'ШРАМ'
-      },
-
-      {
-      number:2,
-      direction:'down',
-      row:0,
-      col:2,
-      length:4,
-      clue:'Подвижная складка кожи над глазом',
-      answer:'ВЕКО'
+        number: 1,
+        direction: 'across',
+        row: 0,
+        col: 1,
+        length: 5,
+        clue: 'Растение, растущее у воды',
+        answer: 'КАМЫШ'
       },
       {
-      number:3,
-      direction:'across',
-      row:1,
-      col:1,
-      length:4,
-      clue:'Водный поток, впадающий в море или озеро',
-      answer:'РЕКА'
+        number: 2,
+        direction: 'across',
+        row: 3,
+        col: 0,
+        length: 6,
+        clue: 'Твёрдый, блестящий материал, проводит тепло и ток',
+        answer: 'МЕТАЛЛ'
       },
       {
-      number:4,
-      direction:'across',
-      row:2,
-      col:0,
-      length:4,
-      clue:'Установленное событие или явление',
-      answer:'ФАКТ'
+        number: 3,
+        direction: 'across',
+        row: 5,
+        col: 0,
+        length: 5,
+        clue: 'Танцевальное искусство на сцене',
+        answer: 'БАЛЕТ'
       },
       {
-      number:5,
-      direction:'across',
-      row:3,
-      col:1,
-      length:4,
-      clue:'Большой солёный водоём',
-      answer:'МОРЕ'
+        number: 4,
+        direction: 'down',
+        row: 0,
+        col: 1,
+        length: 6,
+        clue: 'Старинная повозка для поездок',
+        answer: 'КАРЕТА'
       },
       {
-      number:6,
-      direction:'down',
-      row:3,
-      col:3,
-      length:3,
-      clue:'Десятиногий речной житель с клешнями',
-      answer:'РАК'
+        number: 5,
+        direction: 'down',
+        row: 0,
+        col: 3,
+        length: 4,
+        clue: 'Главный человек в семье для ребёнка',
+        answer: 'МАМА'
       },
       {
-      number:7,
-      direction:'down',
-      row:3,
-      col:2,
-      length:4,
-      clue:'Гордая хищная птица — символ силы',
-      answer:'ОРЕЛ'
+        number: 6,
+        direction: 'down',
+        row: 0,
+        col: 5,
+        length: 5,
+        clue: 'Место где учатся дети',
+        answer: 'ШКОЛА'
       },
-      {
-      number:8,
-      direction:'across',
-      row:4,
-      col:2,
-      length:4,
-      clue:'Обрамление картины или женское имя',
-      answer:'РАМА'
-      },
+    ]
+  },
+  {
+    id: 11,
+    title: 'Кроссворд №11',
+    difficulty: 2,
+    grid: [
+      ['.', ' ', '.', '.', '.', '.', '.'],
+      ['.', ' ', '.', '.', '.', '.', '.'],
+      ['.', ' ', '.', ' ', ' ', ' ', ' '],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      ['.', ' ', '.', '.', ' ', ' ', '.'],
+      ['.', ' ', '.', '.', ' ', ' ', '.'],
+      [' ', ' ', ' ', ' ', ' ', ' ', '.'],
+      ['.', '.', '.', ' ', ' ', ' ', ' '],
+      ['.', '.', '.', '.', '.', ' ', '.'],
+    ],
+    words: [
+      {number:2, direction:'across', row:2, col:3, length:4, clue:'Холодная пора года',                   answer:'ЗИМА'},
+      {number:4, direction:'across', row:3, col:0, length:7, clue:'После имени и отчества',               answer:'ФАМИЛИЯ'},
+      {number:1, direction:'across', row:6, col:0, length:4, clue:'Загородный дом для летнего отдыха',    answer:'ДАЧА'},
+      {number:6, direction:'across', row:7, col:3, length:4, clue:'Состав для соединения деталей',        answer:'КЛЕЙ'},
+      {number:1, direction:'down',   row:0, col:1, length:7, clue:'Коллектив спортсменов',                answer:'КОМАНДА'},
+      {number:2, direction:'down',   row:3, col:4, length:4, clue:'Листок бумаги',                        answer:'ЛИСТ'},
+      {number:3, direction:'down',   row:2, col:5, length:7, clue:'Самый маленький палец',                answer:'МИЗИНЕЦ'},
     ]
   },
   {

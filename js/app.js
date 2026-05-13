@@ -27,8 +27,16 @@ class GridRenderer {
     this.gridEl.style.gridTemplateRows    = `repeat(${rows}, ${cellSize}px)`;
     this.gridEl.style.gap = '3px';
 
+    // Собираем все номера для каждой ячейки (может быть 2 слова в одной)
     const wordStartMap = {};
-    cw.words.forEach(w => { wordStartMap[`${w.row}-${w.col}`] = w.number; });
+    cw.words.forEach(w => {
+      const key = `${w.row}-${w.col}`;
+      if (wordStartMap[key] === undefined) {
+        wordStartMap[key] = [w.number];
+      } else if (!wordStartMap[key].includes(w.number)) {
+        wordStartMap[key].push(w.number);
+      }
+    });
 
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
@@ -43,12 +51,15 @@ class GridRenderer {
           div.className = 'gcell black';
         } else {
           div.className = 'gcell white';
-          const num = wordStartMap[`${r}-${c}`];
-          if (num !== undefined) {
+          const nums = wordStartMap[`${r}-${c}`];
+          if (nums !== undefined) {
             const ns = document.createElement('span');
             ns.className   = 'cell-num';
-            ns.textContent = num;
-            ns.style.fontSize = numSize;
+            // Если два номера — показываем через дробь, уменьшаем шрифт
+            ns.textContent = nums.join('/');
+            ns.style.fontSize = nums.length > 1
+              ? Math.max(6, Math.round(cellSize * 0.16)) + 'px'
+              : numSize;
             div.appendChild(ns);
           }
           const ls = document.createElement('span');
@@ -56,7 +67,7 @@ class GridRenderer {
           ls.id         = `cell-${r}-${c}`;
           ls.style.fontSize = letSize;
           div.appendChild(ls);
-          div.addEventListener('click', () => onCellClick(r, c, num));
+          div.addEventListener('click', () => onCellClick(r, c));
         }
         this.gridEl.appendChild(div);
       }
@@ -427,25 +438,27 @@ class CrosswordApp {
   }
 
   _miniGrid(cw, svgId) {
-    const rows = cw.grid.length, cols = cw.grid[0].length;
+    // Превью всегда 6×6 ячеек — если сетка больше, обрезаем
+    const PREVIEW = 6;
     const unit = 10, gap = 2;
-    const vbW  = cols * unit + (cols - 1) * gap;
-    const vbH  = rows * unit + (rows - 1) * gap;
+    const vbSize = PREVIEW * unit + (PREVIEW - 1) * gap; // единый viewBox для всех карточек
 
     let rects = '';
     let wi = 0;
-    cw.grid.forEach((row, r) => {
-      row.forEach((cell, c) => {
+    for (let r = 0; r < PREVIEW; r++) {
+      for (let c = 0; c < PREVIEW; c++) {
+        const row  = cw.grid[r];
+        const cell = row ? (row[c] !== undefined ? row[c] : '.') : '.';
         const x = c * (unit + gap);
         const y = r * (unit + gap);
         const fill   = cell === '.' ? '#a0a2a8' : '#ffffff';
         const stroke = cell === '.' ? 'none'    : '#d0d1d4';
         const idAttr = cell !== '.' ? ` id="${svgId}-w${wi++}"` : '';
         rects += `<rect${idAttr} x="${x}" y="${y}" width="${unit}" height="${unit}" rx="1.5" ry="1.5" fill="${fill}" stroke="${stroke}" stroke-width="0.8"/>`;
-      });
-    });
+      }
+    }
 
-    return `<svg xmlns="http://www.w3.org/2000/svg" id="${svgId}" width="100%" height="100%" viewBox="0 0 ${vbW} ${vbH}" preserveAspectRatio="xMidYMid meet" style="display:block">${rects}</svg>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" id="${svgId}" width="100%" height="100%" viewBox="0 0 ${vbSize} ${vbSize}" preserveAspectRatio="xMidYMid meet" style="display:block">${rects}</svg>`;
   }
 
   _openCrossword(cw) {
@@ -560,18 +573,24 @@ class CrosswordApp {
     }
   }
 
+  _wordKey(word) {
+    return `${word.number}-${word.direction}`;
+  }
+
   _checkWord(word) {
-    if (this.correctWords.has(word.number)) return;
+    const key = this._wordKey(word);
+    if (this.correctWords.has(key)) return;
     for (let i = 0; i < word.length; i++) {
       const r = word.direction === 'across' ? word.row       : word.row + i;
       const c = word.direction === 'across' ? word.col + i   : word.col;
+      // Если ячейка уже правильная (залочена другим словом) — считаем её верной
       const cellEl = this.grid.getCell(r, c);
       if (cellEl?.classList.contains('correct')) continue;
       const typed    = (this.userAnswers[`${r}-${c}`] || '').toUpperCase();
       const expected = (word.answer[i] || '').toUpperCase();
       if (!typed || typed !== expected) return;
     }
-    this.correctWords.add(word.number);
+    this.correctWords.add(key);
     this.grid.lockWord(word);
 
     if (this.correctWords.size === this.currentCrossword.words.length) {
@@ -590,7 +609,7 @@ class CrosswordApp {
     for (let i = 1; i < total; i++) {
       const idx = (startIdx + i) % total;
       const candidate = list[idx];
-      if (!this.correctWords.has(candidate.number)) {
+      if (!this.correctWords.has(this._wordKey(candidate))) {
         const startCell = this._firstFreeCell(candidate);
         this._setActiveWord(candidate, startCell.row, startCell.col);
         return;
@@ -655,8 +674,8 @@ class CrosswordApp {
       const [r, c] = key.split('-').map(Number);
       this.grid.setLetter(r, c, letter);
     }
-    for (const wordNum of this.correctWords) {
-      const word = this.currentCrossword.words.find(w => w.number === wordNum);
+    for (const wordKey of this.correctWords) {
+      const word = this.currentCrossword.words.find(w => this._wordKey(w) === wordKey);
       if (word) this.grid.lockWord(word);
     }
   }
