@@ -3,13 +3,7 @@ const crosswordsData = [
     id: 1,
     title: 'Кроссворд №1',
     difficulty: 1,
-    // Сетка 6×6:
-    // .  К  А  М  Ы  Ш
-    // .  А  .  А  .  К
-    // .  Р  .  М  .  О
-    // М  Е  Т  А  Л  Л
-    // .  Т  .  .  .  А
-    // Б  А  Л  Е  Т  .
+
     grid: [
       ['.', ' ', ' ', ' ', ' ', ' '],
       ['.', ' ', '.', ' ', '.', ' '],
@@ -75,49 +69,70 @@ const crosswordsData = [
       },
     ]
   },
-  {
-    id: 11,
-    title: 'Кроссворд №11',
-    difficulty: 2,
-    grid: [
-      ['.', ' ', '.', '.', '.', '.', '.'],
-      ['.', ' ', '.', '.', '.', '.', '.'],
-      ['.', ' ', '.', ' ', ' ', ' ', ' '],
-      [' ', ' ', ' ', ' ', ' ', ' ', ' '],
-      ['.', ' ', '.', '.', ' ', ' ', '.'],
-      ['.', ' ', '.', '.', ' ', ' ', '.'],
-      [' ', ' ', ' ', ' ', ' ', ' ', '.'],
-      ['.', '.', '.', ' ', ' ', ' ', ' '],
-      ['.', '.', '.', '.', '.', ' ', '.'],
-    ],
-    words: [
-      {number:2, direction:'across', row:2, col:3, length:4, clue:'Холодная пора года',                   answer:'ЗИМА'},
-      {number:4, direction:'across', row:3, col:0, length:7, clue:'После имени и отчества',               answer:'ФАМИЛИЯ'},
-      {number:1, direction:'across', row:6, col:0, length:4, clue:'Загородный дом для летнего отдыха',    answer:'ДАЧА'},
-      {number:6, direction:'across', row:7, col:3, length:4, clue:'Состав для соединения деталей',        answer:'КЛЕЙ'},
-      {number:1, direction:'down',   row:0, col:1, length:7, clue:'Коллектив спортсменов',                answer:'КОМАНДА'},
-      {number:2, direction:'down',   row:3, col:4, length:4, clue:'Листок бумаги',                        answer:'ЛИСТ'},
-      {number:3, direction:'down',   row:2, col:5, length:7, clue:'Самый маленький палец',                answer:'МИЗИНЕЦ'},
-    ]
-  },
+
   {
     id: 2,
     title: 'Кроссворд №2',
     difficulty: 1,
     grid: [
-      ['1',' ',' ','.','.'],
-      [' ','.','2',' ',' '],
-      [' ',' ',' ','.','3'],
-      ['.','4',' ',' ',' '],
-      ['5',' ','.','6',' '],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [' ', '.', ' ', '.', ' ', '.', ' '],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [' ', '.', ' ', '.', ' ', '.', ' '],
+      [' ', '.', ' ', '.', ' ', '.', ' '],
+      ['.', '.', ' ', '.', '.', '.', ' '],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' '],
     ],
     words: [
-      {number:1,direction:'across',row:0,col:0,length:3,clue:'Хищная речная рыба с усами',answer:'СОМ'},
-      {number:2,direction:'across',row:1,col:2,length:3,clue:'Круглый красный или зелёный фрукт',answer:'ЯБЛ'},
-      {number:3,direction:'down',  row:2,col:4,length:3,clue:'Летний горячий период',answer:'ЗНО'},
-      {number:4,direction:'across',row:3,col:1,length:4,clue:'Тёплое время года',answer:'ЛЕТО'},
-      {number:5,direction:'across',row:4,col:0,length:2,clue:'Орган обоняния',answer:'НОС'},
-      {number:6,direction:'across',row:4,col:3,length:2,clue:'Вкусный фруктовый напиток',answer:'СОК'},
+      {
+        number: 1,
+        direction: 'across',
+        row: 0, col: 0, length: 7,
+        clue: 'Первая еда в начале дня',
+        answer: 'ЗАВТРАК'
+      },
+      {
+        number: 2,
+        direction: 'across',
+        row: 2, col: 0, length: 7,
+        clue: 'Мягкая тёплая шерсть из подшерска коз',
+        answer: 'КАШЕМИР'
+      },
+      {
+        number: 3,
+        direction: 'across',
+        row: 6, col: 0, length: 7,
+        clue: 'Торжество по случаю заключения брака',
+        answer: 'СВАДЬБА'
+      },
+      {
+        number: 4,
+        direction: 'down',
+        row: 0, col: 0, length: 5,
+        clue: 'Правило, установленное государством',
+        answer: 'ЗАКОН'
+      },
+      {
+        number: 5,
+        direction: 'down',
+        row: 0, col: 2, length: 7,
+        clue: 'Предмет для хранения одежды на весу',
+        answer: 'ВЕШАЛКА'
+      },
+      {
+        number: 6,
+        direction: 'down',
+        row: 0, col: 4, length: 5,
+        clue: 'Большое художественное произведение',
+        answer: 'РОМАН'
+      },
+      {
+        number: 7,
+        direction: 'down',
+        row: 0, col: 6, length: 7,
+        clue: 'Продвижение в профессии',
+        answer: 'КАРЬЕРА'
+      },
     ]
   },
   {
@@ -125,20 +140,75 @@ const crosswordsData = [
     title: 'Кроссворд №3',
     difficulty: 1,
     grid: [
-      ['1',' ',' ','.','.'],
-      [' ','.','2',' ',' '],
-      ['3',' ',' ',' ','.'],
-      ['.','.','.','4',' '],
-      ['.','5',' ',' ',' '],
+      [' ', '.', '.', '.', ' ', '.', ' ', '.'],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [' ', '.', '.', '.', ' ', '.', ' ', '.'],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', '.'],
+      [' ', '.', '.', '.', '.', '.', ' ', '.'],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', '.'],
+      [' ', '.', ' ', '.', '.', '.', '.', '.'],
+      ['.', '.', ' ', ' ', ' ', ' ', ' ', '.'],
     ],
     words: [
-      {number:1,direction:'across',row:0,col:0,length:3,clue:'Небо ночью усыпано …',answer:'ЗВЕ'},
-      {number:2,direction:'across',row:1,col:2,length:3,clue:'Детская игрушка-юла',answer:'ЮЛА'},
-      {number:3,direction:'across',row:2,col:0,length:4,clue:'Время дождей и листопада',answer:'ОСЕН'},
-      {number:4,direction:'across',row:3,col:3,length:2,clue:'Нота после «ля»',answer:'СИ'},
-      {number:5,direction:'across',row:4,col:1,length:4,clue:'Комната для сна',answer:'СПАЛ'},
+      {
+        number: 1,
+        direction: 'across',
+        row: 1, col: 0, length: 8,
+        clue: 'Полуостров на Дальнем Востоке России',
+        answer: 'КАМЧАТКА'
+      },
+      {
+        number: 2,
+        direction: 'across',
+        row: 3, col: 0, length: 7,
+        clue: 'Небольшое пресмыкающееся с длинным хвостом',
+        answer: 'ЯЩЕРИЦА'
+      },
+      {
+        number: 3,
+        direction: 'across',
+        row: 5, col: 0, length: 7,
+        clue: 'Твёрдая створка, в которой живёт моллюск',
+        answer: 'РАКУШКА'
+      },
+      {
+        number: 4,
+        direction: 'across',
+        row: 7, col: 2, length: 5,
+        clue: 'Высокое узкое сооружение',
+        answer: 'БАШНЯ'
+      },
+      {
+        number: 5,
+        direction: 'down',
+        row: 0, col: 0, length: 7,
+        clue: 'Десятый месяц года',
+        answer: 'ОКТЯБРЬ'
+      },
+      {
+        number: 6,
+        direction: 'down',
+        row: 0, col: 4, length: 4,
+        clue: 'Фамилия художника Сальвадора',
+        answer: 'ДАЛИ'
+      },
+      {
+        number: 7,
+        direction: 'down',
+        row: 0, col: 6, length: 6,
+        clue: 'Интервал в музыке между одинаковыми нотами',
+        answer: 'ОКТАВА'
+      },
+      {
+        number: 8,
+        direction: 'down',
+        row: 5, col: 2, length: 3,
+        clue: 'Правильный многогранник',
+        answer: 'КУБ'
+      },
     ]
   },
+
   {
     id: 4,
     title: 'Кроссворд №4',
