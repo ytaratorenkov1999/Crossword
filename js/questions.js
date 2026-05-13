@@ -214,180 +214,526 @@ const crosswordsData = [
     title: 'Кроссворд №4',
     difficulty: 2,
     grid: [
-      ['1',' ',' ',' ','.','2',' ',' '],
-      [' ','.','3',' ',' ',' ',' ',' '],
-      [' ',' ',' ','.','4',' ',' ',' '],
-      ['.','5',' ',' ',' ',' ','.','.'],
-      ['6',' ','.','.','7',' ',' ',' '],
-      [' ',' ',' ','8',' ',' ',' ','.'],
+      [' ', '.', '.', ' ', '.', ' ', '.', '.', '.'],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [' ', '.', '.', ' ', '.', ' ', '.', '.', ' '],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [' ', '.', '.', '.', '.', ' ', '.', '.', '.'],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      [' ', '.', ' ', '.', '.', '.', '.', '.', '.'],
+      [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+      ['.', '.', ' ', '.', '.', '.', '.', '.', '.'],
     ],
     words: [
-      {number:1,direction:'across',row:0,col:0,length:4,clue:'Морское судно',answer:'КОРБ'},
-      {number:2,direction:'across',row:0,col:5,length:3,clue:'Хвойное дерево с шишками',answer:'ЕЛЬ'},
-      {number:3,direction:'across',row:1,col:2,length:6,clue:'Природный источник воды',answer:'КЛЮЧИК'},
-      {number:4,direction:'across',row:2,col:4,length:4,clue:'Пустынное колючее растение',answer:'КАК'},
-      {number:5,direction:'across',row:3,col:1,length:5,clue:'Струнный инструмент',answer:'ВИОЛА'},
-      {number:6,direction:'across',row:4,col:0,length:2,clue:'Серый великан с хоботом',answer:'СЛ'},
-      {number:7,direction:'across',row:4,col:4,length:4,clue:'Белые осадки зимой',answer:'СНЕГ'},
-      {number:8,direction:'across',row:5,col:3,length:4,clue:'Инструмент художника',answer:'КРАС'},
+      {
+        number: 1,
+        direction: 'across',
+        row: 1, col: 0, length: 9,
+        clue: 'Место для отдыха и лечения',
+        answer: 'САНАТОРИЙ'
+      },
+      {
+        number: 2,
+        direction: 'across',
+        row: 3, col: 0, length: 9,
+        clue: 'Учёный, изучающий моря и океаны',
+        answer: 'ОКЕАНОВЕД'
+      },
+      {
+        number: 3,
+        direction: 'across',
+        row: 5, col: 0, length: 9,
+        clue: 'Прибор или человек, определяющий путь',
+        answer: 'НАВИГАТОР'
+      },
+      {
+        number: 4,
+        direction: 'across',
+        row: 7, col: 0, length: 9,
+        clue: 'Единица измерения массы',
+        answer: 'КИЛОГРАММ'
+      },
+      {
+        number: 5,
+        direction: 'down',
+        row: 0, col: 0, length: 8,
+        clue: 'Место, откуда что-то берёт начало',
+        answer: 'ИСТОЧНИК'
+      },
+      {
+        number: 6,
+        direction: 'down',
+        row: 0, col: 3, length: 4,
+        clue: 'Отец в семье',
+        answer: 'ПАПА'
+      },
+      {
+        number: 7,
+        direction: 'down',
+        row: 0, col: 5, length: 6,
+        clue: 'Путь для движения',
+        answer: 'ДОРОГА'
+      },
+      {
+        number: 8,
+        direction: 'down',
+        row: 1, col: 8, length: 3,
+        clue: 'Антисептик тёмного цвета',
+        answer: 'ЙОД'
+      },
+      {
+        number: 9,
+        direction: 'down',
+        row: 5, col: 2, length: 4,
+        clue: 'Санитар леса',
+        answer: 'ВОЛК'
+      },
     ]
   },
+
   {
     id: 5,
     title: 'Кроссворд №5',
     difficulty: 2,
     grid: [
-      ['.','1',' ',' ',' ',' ','.'],
-      ['2',' ','.','.','3',' ',' '],
-      [' ','.','.','4',' ',' ',' '],
-      ['5',' ',' ',' ',' ','.','.'],
-      [' ','.','6',' ',' ',' ','.'],
-      ['7',' ',' ',' ','.','.','.'],
+      [' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+      [' ','.','.','.','.','.','.','.','.','.'],
+      [' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+      [' ','.','.','.','  ','.','.','.','.', '.'],
+      [' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+      [' ','.','  ','.','  ','.','.','.','.', '.'],
+      [' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+      [' ','.','  ','.','.','.',' ','.','  ','.'],
+      [' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+      [' ','.','  ','.','.','.','.','.',' ','.'],
     ],
     words: [
-      {number:1,direction:'across',row:0,col:1,length:5,clue:'Мебель для сна',answer:'КРОВА'},
-      {number:2,direction:'across',row:1,col:0,length:2,clue:'Оружие лучника',answer:'ЛУК'},
-      {number:3,direction:'across',row:1,col:4,length:3,clue:'Зелёный овощ на грядке',answer:'ЛУК'},
-      {number:4,direction:'across',row:2,col:3,length:4,clue:'Государственный флаг',answer:'ЗНАМ'},
-      {number:5,direction:'across',row:3,col:0,length:5,clue:'Рыночная площадь',answer:'РЫНОК'},
-      {number:6,direction:'across',row:4,col:2,length:4,clue:'Лесная алая ягода',answer:'МАЛИ'},
-      {number:7,direction:'across',row:5,col:0,length:4,clue:'Крупный лесной кабан',answer:'КАБА'},
+      {
+        number: 1,
+        direction: 'across',
+        row: 0, col: 0, length: 10,
+        clue: 'Человек, который владеет чем-то',
+        answer: 'ОБЛАДАТЕЛЬ'
+      },
+      {
+        number: 2,
+        direction: 'across',
+        row: 2, col: 0, length: 10,
+        clue: 'Изображение, снимок',
+        answer: 'ФОТОГРАФИЯ'
+      },
+      {
+        number: 3,
+        direction: 'across',
+        row: 4, col: 0, length: 10,
+        clue: 'Повышенное артериальное давление',
+        answer: 'ГИПЕРТОНИЯ'
+      },
+      {
+        number: 4,
+        direction: 'across',
+        row: 6, col: 0, length: 10,
+        clue: 'Озвученное и записанное художественное произведение',
+        answer: 'АУДИОКНИГА'
+      },
+      {
+        number: 5,
+        direction: 'across',
+        row: 8, col: 0, length: 10,
+        clue: 'Передатчик световой, тепловой или звуковой энергии',
+        answer: 'ИЗЛУЧАТЕЛЬ'
+      },
+      {
+        number: 6,
+        direction: 'down',
+        row: 0, col: 0, length: 10,
+        clue: 'Правила написания слов и их форм',
+        answer: 'ОРФОГРАФИЯ'
+      },
+      {
+        number: 7,
+        direction: 'down',
+        row: 4, col: 2, length: 6,
+        clue: 'Собака с курчавой шерстью',
+        answer: 'ПУДЕЛЬ'
+      },
+      {
+        number: 8,
+        direction: 'down',
+        row: 2, col: 4, length: 5,
+        clue: 'Зев, глотка и гортань',
+        answer: 'ГОРЛО'
+      },
+      {
+        number: 9,
+        direction: 'down',
+        row: 6, col: 6, length: 3,
+        clue: 'Вид травянистых растений семейства бобовых',
+        answer: 'НУТ'
+      },
+      {
+        number: 10,
+        direction: 'down',
+        row: 6, col: 8, length: 4,
+        clue: 'Курс парусного судна относительно направления ветра',
+        answer: 'ГАЛС'
+      },
     ]
-  },
+  }
+,
   {
     id: 6,
     title: 'Кроссворд №6',
     difficulty: 2,
+    // Сетка 11×11:
+    // Э  .  Г  .  .  .  .  .  .  .  .
+    // К  О  Н  С  Т  И  Т  У  Ц  И  Я
+    // С  .  О  .  .  .  .  .  .  .  .
+    // П  А  М  Я  Т  Н  И  К  .  .  .
+    // Р  .  .  .  .  .  .  Л  .  .  .
+    // Е  Д  И  Н  О  Г  Л  А  С  И  Е
+    // С  .  .  Е  .  Н  .  В  .  .  .
+    // С  Е  Р  Д  Ц  Е  В  И  Н  А  .
+    // .  .  .  Е  .  В  .  Ш  .  .  .
+    // .  .  .  Л  .  .  П  А  Ш  Н  Я
+    // В  И  Т  Я  З  Ь  .  .  .  .  .
     grid: [
-      ['1',' ',' ',' ',' ','.'],
-      [' ','.','2',' ',' ',' '],
-      [' ','.','.','3',' ',' '],
-      ['.','4',' ',' ',' ','.'],
-      ['5',' ','.','.','6',' '],
-      [' ','.','.','7',' ',' '],
+      [' ','.','  ','.','.','.','.','.','.','.','.'],
+      [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+      [' ','.','  ','.','.','.','.','.','.','.','.'],
+      [' ',' ',' ',' ',' ',' ',' ',' ','.','.','.'],
+      [' ','.','.','.','.','.','.',' ','.','.','.'],
+      [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+      [' ','.','.','  ','.',' ','.','  ','.','.','.'],
+      [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','.'],
+      ['.','.','.',' ','.','  ','.','  ','.','.','.'],
+      ['.','.','.','  ','.','.','  ',' ',' ',' ',' '],
+      [' ',' ',' ',' ',' ',' ','.','.','.','.','.'],
     ],
     words: [
-      {number:1,direction:'across',row:0,col:0,length:5,clue:'Быстрый горный поток',answer:'ПОТОК'},
-      {number:2,direction:'across',row:1,col:2,length:4,clue:'Осьминог живёт в …',answer:'МОРЕ'},
-      {number:3,direction:'across',row:2,col:3,length:3,clue:'Зимние длинные лыжи',answer:'ЛЫЖ'},
-      {number:4,direction:'across',row:3,col:1,length:4,clue:'Ночная мудрая птица',answer:'СОВА'},
-      {number:5,direction:'across',row:4,col:0,length:2,clue:'Мамина мама',answer:'БА'},
-      {number:6,direction:'down',  row:4,col:5,length:2,clue:'Чай с этой травой',answer:'МЯТ'},
-      {number:7,direction:'across',row:5,col:3,length:3,clue:'Речной полосатый хищник',answer:'ОКУ'},
+      {
+        number: 1,
+        direction: 'across',
+        row: 1, col: 0, length: 11,
+        clue: 'Основной закон государства',
+        answer: 'КОНСТИТУЦИЯ'
+      },
+      {
+        number: 2,
+        direction: 'across',
+        row: 3, col: 0, length: 8,
+        clue: 'Архитектурное или скульптурное сооружение в память или в честь какого-то лица или события',
+        answer: 'ПАМЯТНИК'
+      },
+      {
+        number: 3,
+        direction: 'across',
+        row: 5, col: 0, length: 11,
+        clue: 'Полное согласие, единодушие в чём-нибудь',
+        answer: 'ЕДИНОГЛАСИЕ'
+      },
+      {
+        number: 4,
+        direction: 'across',
+        row: 7, col: 0, length: 10,
+        clue: 'Внутренняя, средняя часть чего-нибудь, например плода',
+        answer: 'СЕРДЦЕВИНА'
+      },
+      {
+        number: 5,
+        direction: 'across',
+        row: 9, col: 6, length: 5,
+        clue: 'Вспаханное поле',
+        answer: 'ПАШНЯ'
+      },
+      {
+        number: 6,
+        direction: 'across',
+        row: 10, col: 0, length: 6,
+        clue: 'Храбрый, доблестный воин',
+        answer: 'ВИТЯЗЬ'
+      },
+      {
+        number: 7,
+        direction: 'down',
+        row: 0, col: 0, length: 8,
+        clue: 'Транспортное средство, идущее с высокой скоростью',
+        answer: 'ЭКСПРЕСС'
+      },
+      {
+        number: 8,
+        direction: 'down',
+        row: 0, col: 2, length: 4,
+        clue: 'Фантастическое существо, карлик, охраняющий подземные сокровища',
+        answer: 'ГНОМ'
+      },
+      {
+        number: 9,
+        direction: 'down',
+        row: 5, col: 3, length: 6,
+        clue: 'Единица счёта времени от понедельника до воскресенья включительно',
+        answer: 'НЕДЕЛЯ'
+      },
+      {
+        number: 10,
+        direction: 'down',
+        row: 5, col: 5, length: 4,
+        clue: 'Чувство сильного возмущения, негодования',
+        answer: 'ГНЕВ'
+      },
+      {
+        number: 11,
+        direction: 'down',
+        row: 3, col: 7, length: 7,
+        clue: 'Пластинка в музыкальных инструментах, по которой ударяют для получения звука',
+        answer: 'КЛАВИША'
+      },
     ]
   },
   {
     id: 7,
     title: 'Кроссворд №7',
     difficulty: 3,
+    // Сетка 12×12:
+    // А  Б  Б  Р  Е  В  И  А  Т  У  Р  А
+    // Л  .  .  О  .  Е  .  .  .  .  .  .
+    // Ь  .  .  Щ  .  Д  .  .  .  .  .  .
+    // Т  О  Т  А  Л  И  Т  А  Р  И  З  М
+    // Е  .  .  .  .  .  .  .  .  .  .  .
+    // Р  Е  А  Б  И  Л  И  Т  А  Ц  И  Я
+    // Н  .  .  .  .  .  .  .  .  .  .  С
+    // А  .  Т  .  .  С  .  .  И  .  .  Т
+    // Т  Е  Р  М  О  П  Р  И  Н  Т  Е  Р
+    // И  .  А  .  .  И  .  .  Ж  .  .  Е
+    // В  А  К  Х  А  Н  А  Л  И  Я  .  Б
+    // А  .  Т  .  .  А  .  .  Р  .  .  .
     grid: [
-      ['1',' ',' ',' ',' ',' ','.','2',' '],
-      [' ','.','3',' ',' ',' ',' ',' ','.'],
-      [' ',' ',' ','.','4',' ',' ',' ',' '],
-      ['.','.','5',' ',' ',' ',' ','.','.'],
-      ['6',' ',' ','.','.','7',' ',' ',' '],
-      [' ',' ','.','8',' ',' ',' ',' ','.'],
-      ['.','9',' ',' ',' ',' ','.','.','.'],
-      ['10',' ',' ',' ','.','11',' ',' ',' '],
+      [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+      [' ','.','.',' ','.','  ','.','.','.','.','.', '.'],
+      [' ','.','.','  ','.','  ','.','.','.','.','.', '.'],
+      [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+      [' ','.','.','.','.','.','.','.','.','.','.', '.'],
+      [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+      [' ','.','.','.','.','.','.','.','.','.','.','  '],
+      [' ','.','  ','.','.','  ','.','.','  ','.','.','.  '],
+      [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+      [' ','.','  ','.','.','  ','.','.','  ','.','.','.  '],
+      [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','.','  '],
+      [' ','.','  ','.','.','  ','.','.','  ','.','.','.'],
     ],
     words: [
-      {number:1, direction:'across',row:0,col:0,length:6,clue:'Посуда для варки супа',answer:'КАСТРЯ'},
-      {number:2, direction:'across',row:0,col:7,length:2,clue:'Тропический попугай',answer:'АРА'},
-      {number:3, direction:'across',row:1,col:2,length:6,clue:'Дикие дебри тропиков',answer:'ДЖУНГЛ'},
-      {number:4, direction:'across',row:2,col:4,length:5,clue:'Земля — третья … от Солнца',answer:'ПЛАНЕ'},
-      {number:5, direction:'across',row:3,col:2,length:5,clue:'Крупное строение из кирпича',answer:'ЗДАНИ'},
-      {number:6, direction:'across',row:4,col:0,length:3,clue:'Высокая дозорная постройка',answer:'ЗАМ'},
-      {number:7, direction:'across',row:4,col:5,length:4,clue:'Полосатое животное саванны',answer:'ЗЕБР'},
-      {number:8, direction:'across',row:5,col:3,length:5,clue:'Торжественная патриотическая песня',answer:'ГИМН'},
-      {number:9, direction:'across',row:6,col:1,length:5,clue:'Дерево с белым стволом',answer:'БЕРЁЗ'},
-      {number:10,direction:'across',row:7,col:0,length:4,clue:'Зимний вид спорта на горе',answer:'ЛЫЖИ'},
-      {number:11,direction:'across',row:7,col:5,length:4,clue:'Радужный природный камень',answer:'ОПАЛ'},
+      {
+        number: 1,
+        direction: 'across',
+        row: 0, col: 0, length: 12,
+        clue: 'Сложносокращённое слово',
+        answer: 'АББРЕВИАТУРА'
+      },
+      {
+        number: 2,
+        direction: 'across',
+        row: 3, col: 0, length: 12,
+        clue: 'Политический режим, при котором государство стремится к полному контролю',
+        answer: 'ТОТАЛИТАРИЗМ'
+      },
+      {
+        number: 3,
+        direction: 'across',
+        row: 5, col: 0, length: 12,
+        clue: 'Устранение последствий, вызванных болезнью или травмой',
+        answer: 'РЕАБИЛИТАЦИЯ'
+      },
+      {
+        number: 4,
+        direction: 'across',
+        row: 8, col: 0, length: 12,
+        clue: 'Устройство для печати с помощью нагрева',
+        answer: 'ТЕРМОПРИНТЕР'
+      },
+      {
+        number: 5,
+        direction: 'across',
+        row: 10, col: 0, length: 10,
+        clue: 'Крайняя степень беспорядка, неистового разгула',
+        answer: 'ВАКХАНАЛИЯ'
+      },
+      {
+        number: 6,
+        direction: 'down',
+        row: 0, col: 0, length: 12,
+        clue: 'Необходимость выбора одного из двух возможных решений',
+        answer: 'АЛЬТЕРНАТИВА'
+      },
+      {
+        number: 7,
+        direction: 'down',
+        row: 0, col: 3, length: 4,
+        clue: 'Небольшой, чаще лиственный лес',
+        answer: 'РОЩА'
+      },
+      {
+        number: 8,
+        direction: 'down',
+        row: 0, col: 5, length: 4,
+        clue: 'Название буквы древней славянской азбуки',
+        answer: 'ВЕДИ'
+      },
+      {
+        number: 9,
+        direction: 'down',
+        row: 7, col: 2, length: 5,
+        clue: 'Большая проезжая дорога (устаревшее)',
+        answer: 'ТРАКТ'
+      },
+      {
+        number: 10,
+        direction: 'down',
+        row: 7, col: 5, length: 5,
+        clue: 'Часть туловища от шеи до крестца',
+        answer: 'СПИНА'
+      },
+      {
+        number: 11,
+        direction: 'down',
+        row: 7, col: 8, length: 5,
+        clue: 'Южное дерево семейства тутовых с сочными сладкими плодами',
+        answer: 'ИНЖИР'
+      },
+      {
+        number: 12,
+        direction: 'down',
+        row: 5, col: 11, length: 6,
+        clue: 'Хищная птица с коротким крючковатым клювом и длинными острыми когтями',
+        answer: 'ЯСТРЕБ'
+      },
     ]
-  },
+  }
+,
   {
     id: 8,
     title: 'Кроссворд №8',
     difficulty: 3,
+    // Сетка 13×13:
+    // .  .  Т  .  И  .  .  Д  .  Н  .  .  Ф
+    // К  Л  Я  К  С  А  .  Е  .  Е  .  .  И
+    // .  .  Ж  .  С  .  .  Л  А  М  А  .  З
+    // .  .  Е  .  Л  .  .  Е  .  Н  .  .  К
+    // Н  .  Л  .  Е  .  .  Г  Р  О  Т  .  У
+    // Е  .  О  .  Д  .  .  И  .  Г  .  .  Л
+    // Б  Л  А  Г  О  Д  А  Р  Н  О  С  Т  Ь
+    // О  .  Т  .  В  .  .  О  .  С  .  .  Т
+    // С  О  Л  Д  А  Т  .  В  .  Л  .  .  У
+    // К  .  Е  .  Т  .  .  А  .  О  .  .  Р
+    // Р  .  Т  Р  Е  К  .  Н  .  В  .  .  А
+    // Е  .  .  .  Л  .  .  И  .  И  .  .  .
+    // Б  Р  У  С  Ь  Я  .  Е  .  Е  .  .  .
     grid: [
-      ['.','1',' ',' ',' ',' ',' ','.','.'],
-      ['2',' ',' ','.','.','3',' ',' ',' '],
-      [' ','.','.','4',' ',' ',' ',' ','.'],
-      ['5',' ',' ',' ',' ','.','6',' ',' '],
-      [' ','.','7',' ',' ',' ','.',' ','.'],
-      ['8',' ',' ',' ','.','9',' ',' ',' '],
-      ['.','.','10',' ',' ',' ',' ','.','.'],
-      ['11',' ',' ',' ',' ','.','12',' ',' '],
+      ['.','.','  ','.','  ','.','.','  ','.','  ','.','.','  '],
+      [' ',' ',' ',' ',' ',' ','.','  ','.','  ','.','.','  '],
+      ['.','.','  ','.','  ','.','.','  ',' ','  ',' ','.','  '],
+      ['.','.','  ','.','  ','.','.','  ','.','  ','.','.','  '],
+      [' ','.','  ','.','  ','.','.','  ',' ','  ',' ','.','  '],
+      [' ','.','  ','.','  ','.','.','  ','.','  ','.','.','  '],
+      [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
+      [' ','.','  ','.','  ','.','.','  ','.','  ','.','.','  '],
+      [' ',' ',' ',' ',' ',' ','.','  ','.','  ','.','.','  '],
+      [' ','.','  ','.','  ','.','.','  ','.','  ','.','.','  '],
+      [' ','.','  ',' ','  ',' ','.','  ','.','  ','.','.','  '],
+      [' ','.','.','.',  ' ','.','.','  ','.','  ','.','.', '.'],
+      [' ',' ',' ',' ',' ',' ','.','  ','.','  ','.','.','.'],
     ],
     words: [
-      {number:1, direction:'across',row:0,col:1,length:6,clue:'Наука о строении тела',answer:'АНАТОМ'},
-      {number:2, direction:'across',row:1,col:0,length:3,clue:'Хищная птица-охотник',answer:'ЯСТ'},
-      {number:3, direction:'across',row:1,col:5,length:4,clue:'Ядовитая очковая змея',answer:'КОБР'},
-      {number:4, direction:'across',row:2,col:3,length:5,clue:'Зал с картинами',answer:'ГАЛЕР'},
-      {number:5, direction:'across',row:3,col:0,length:5,clue:'Страна восходящего солнца',answer:'ЯПОНИ'},
-      {number:6, direction:'across',row:3,col:6,length:3,clue:'Цвет ясного неба',answer:'СИН'},
-      {number:7, direction:'across',row:4,col:2,length:4,clue:'Тёмная вулканическая порода',answer:'БАЗЛ'},
-      {number:8, direction:'across',row:5,col:0,length:4,clue:'Стул без спинки',answer:'ТАБУ'},
-      {number:9, direction:'across',row:5,col:5,length:4,clue:'Металлический крюк корабля',answer:'ЯКОР'},
-      {number:10,direction:'across',row:6,col:2,length:5,clue:'Сладкий тропический плод',answer:'МАНГО'},
-      {number:11,direction:'across',row:7,col:0,length:5,clue:'Яркий праздник-шествие',answer:'КАРНА'},
-      {number:12,direction:'across',row:7,col:6,length:3,clue:'Зерно для плова',answer:'РИС'},
+      {
+        number: 1,
+        direction: 'across',
+        row: 1, col: 0, length: 6,
+        clue: 'Чернильное пятно на бумаге',
+        answer: 'КЛЯКСА'
+      },
+      {
+        number: 2,
+        direction: 'across',
+        row: 2, col: 7, length: 4,
+        clue: 'Южноамериканское вьючное животное семейства верблюдовых',
+        answer: 'ЛАМА'
+      },
+      {
+        number: 3,
+        direction: 'across',
+        row: 4, col: 7, length: 4,
+        clue: 'Неглубокая пещера с широким входом',
+        answer: 'ГРОТ'
+      },
+      {
+        number: 4,
+        direction: 'across',
+        row: 6, col: 0, length: 13,
+        clue: 'Чувство признательности за сделанное добро',
+        answer: 'БЛАГОДАРНОСТЬ'
+      },
+      {
+        number: 5,
+        direction: 'across',
+        row: 8, col: 0, length: 6,
+        clue: 'Военнослужащий',
+        answer: 'СОЛДАТ'
+      },
+      {
+        number: 6,
+        direction: 'across',
+        row: 10, col: 2, length: 4,
+        clue: 'Круговая дорожка с виражами для вело- и мотогонок',
+        answer: 'ТРЕК'
+      },
+      {
+        number: 7,
+        direction: 'across',
+        row: 12, col: 0, length: 6,
+        clue: 'Гимнастический снаряд в виде двух параллельных горизонтальных шестов на стойках',
+        answer: 'БРУСЬЯ'
+      },
+      {
+        number: 8,
+        direction: 'down',
+        row: 4, col: 0, length: 9,
+        clue: 'Очень высокий, многоэтажный дом',
+        answer: 'НЕБОСКРЕБ'
+      },
+      {
+        number: 9,
+        direction: 'down',
+        row: 0, col: 2, length: 11,
+        clue: 'Спортсмен, который выполняет поднятия штанги над головой',
+        answer: 'ТЯЖЕЛОАТЛЕТ'
+      },
+      {
+        number: 10,
+        direction: 'down',
+        row: 0, col: 4, length: 13,
+        clue: 'Человек, занимающийся научными открытиями и наблюдениями',
+        answer: 'ИССЛЕДОВАТЕЛЬ'
+      },
+      {
+        number: 11,
+        direction: 'down',
+        row: 0, col: 7, length: 13,
+        clue: 'Процесс передачи части обязанностей и задач от руководителя подчинённому',
+        answer: 'ДЕЛЕГИРОВАНИЕ'
+      },
+      {
+        number: 12,
+        direction: 'down',
+        row: 0, col: 9, length: 13,
+        clue: 'Краткость в передаче чего-либо словами',
+        answer: 'НЕМНОГОСЛОВИЕ'
+      },
+      {
+        number: 13,
+        direction: 'down',
+        row: 0, col: 12, length: 11,
+        clue: 'Учебный предмет, имеющий своею целью физическое воспитание учащихся',
+        answer: 'ФИЗКУЛЬТУРА'
+      },
     ]
-  },
-  {
-    id: 9,
-    title: 'Кроссворд №9',
-    difficulty: 3,
-    grid: [
-      ['1',' ',' ',' ',' ','.','2',' ',' '],
-      [' ','.','3',' ',' ',' ',' ',' ','.'],
-      [' ',' ',' ','.','4',' ',' ',' ',' '],
-      ['.','5',' ',' ',' ',' ','.','6',' '],
-      ['7',' ',' ','.','.','8',' ',' ',' '],
-      [' ',' ','.','9',' ',' ',' ','.','.'],
-      ['.','.','10',' ',' ',' ',' ',' ','.'],
-      ['11',' ',' ',' ','.','12',' ',' ',' '],
-    ],
-    words: [
-      {number:1, direction:'across',row:0,col:0,length:5,clue:'Самый быстрый сухопутный хищник',answer:'ГЕПАР'},
-      {number:2, direction:'across',row:0,col:6,length:3,clue:'Утренняя тёплая … из круп',answer:'КАШ'},
-      {number:3, direction:'across',row:1,col:2,length:6,clue:'Учёный, изучающий звёзды',answer:'АСТРО'},
-      {number:4, direction:'across',row:2,col:4,length:5,clue:'Чертёжный инструмент',answer:'ЛИНЕЙ'},
-      {number:5, direction:'across',row:3,col:1,length:5,clue:'Пространство за атмосферой',answer:'КОСМО'},
-      {number:6, direction:'down',  row:3,col:7,length:3,clue:'Твёрдый лесной плод',answer:'ОРЕ'},
-      {number:7, direction:'across',row:4,col:0,length:3,clue:'Вагон на рельсах',answer:'ВАГ'},
-      {number:8, direction:'across',row:4,col:5,length:4,clue:'Домашняя птица, несущая яйца',answer:'КУРИ'},
-      {number:9, direction:'across',row:5,col:3,length:4,clue:'Персонаж сказок — Иван …',answer:'ЦАРЕ'},
-      {number:10,direction:'across',row:6,col:2,length:6,clue:'Горная цепь',answer:'ХРЕБЕТ'},
-      {number:11,direction:'across',row:7,col:0,length:4,clue:'Иглокожее морское животное',answer:'МОРСК'},
-      {number:12,direction:'across',row:7,col:5,length:4,clue:'Бабочка до превращения',answer:'МОТЫЛ'},
-    ]
-  },
-  {
-    id: 10,
-    title: 'Кроссворд №10',
-    difficulty: 3,
-    grid: [
-      ['.','1',' ',' ',' ',' ',' ','.'],
-      ['2',' ','.','.','3',' ',' ',' '],
-      [' ','.','.','4',' ',' ',' ','.'],
-      ['5',' ',' ',' ',' ','.','6',' '],
-      [' ','.','7',' ',' ',' ','.',' '],
-      ['8',' ',' ',' ','.','9',' ',' '],
-      ['.','.','10',' ',' ',' ',' ','.'],
-      ['11',' ',' ',' ',' ','.','.','.'],
-    ],
-    words: [
-      {number:1, direction:'across',row:0,col:1,length:6,clue:'Искусство движущихся картин',answer:'КИНЕМА'},
-      {number:2, direction:'across',row:1,col:0,length:2,clue:'«Бе» — вторая буква алфавита',answer:'БЕ'},
-      {number:3, direction:'across',row:1,col:4,length:4,clue:'Блестящая гладкая ткань',answer:'ШЁЛК'},
-      {number:4, direction:'across',row:2,col:3,length:4,clue:'Лопасть вращающегося колеса',answer:'ЛОПА'},
-      {number:5, direction:'across',row:3,col:0,length:5,clue:'Короткая запись в дневнике',answer:'ЗАМЕТ'},
-      {number:6, direction:'down',  row:3,col:6,length:4,clue:'Первый хрупкий лёд',answer:'ИНЕЙ'},
-      {number:7, direction:'across',row:4,col:2,length:4,clue:'Ценная бумага компании',answer:'АКЦИ'},
-      {number:8, direction:'across',row:5,col:0,length:4,clue:'Птица-барабанщик леса',answer:'ДЯТЛ'},
-      {number:9, direction:'across',row:5,col:5,length:3,clue:'Заряженная частица атома',answer:'ИОН'},
-      {number:10,direction:'across',row:6,col:2,length:5,clue:'Подземный городской транспорт',answer:'МЕТРО'},
-      {number:11,direction:'across',row:7,col:0,length:5,clue:'Высшая горная точка',answer:'ПИКЕТ'},
-    ]
-  },
+  }
 ];
