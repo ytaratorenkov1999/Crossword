@@ -14,7 +14,8 @@ class GridRenderer {
     const byH = Math.floor((h - gap * (rows - 1)) / rows);
     const isLandscape = window.matchMedia("(orientation: landscape) and (max-height: 700px)").matches;
     const minSize = isLandscape ? 24 : 20;
-    return Math.max(minSize, Math.min(byW, byH, 58));
+    const maxSize = isLandscape ? 90 : 58;
+    return Math.max(minSize, Math.min(byW, byH, maxSize));
   }
 
   render(cw, onCellClick) {
@@ -166,28 +167,7 @@ class Keyboard {
         bsp.className = 'kb-key kb-backspace';
         bsp.innerHTML = '⌫';
 
-        let bspInterval   = null;
-        let suppressClick = false;
-
-        const startDelete = () => {
-          suppressClick = false;
-          bspInterval = setInterval(() => {
-            suppressClick = true;
-            this.onBackspace?.();
-          }, 120);
-        };
-
-        const stopDelete = () => {
-          clearInterval(bspInterval);
-          bspInterval = null;
-        };
-
-        bsp.addEventListener('pointerdown',  startDelete);
-        bsp.addEventListener('pointerup',    stopDelete);
-        bsp.addEventListener('pointerleave', stopDelete);
-        bsp.addEventListener('click', () => {
-          if (!suppressClick) this.onBackspace?.();
-        });
+        bsp.addEventListener('click', () => this.onBackspace?.());
 
         rowDiv.appendChild(bsp);
       }

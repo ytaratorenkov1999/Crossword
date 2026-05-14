@@ -788,27 +788,44 @@ body {
   }
 
   .keyboard {
-    padding: 2px 8px 5px;
-    flex-shrink: 0;
+    padding: 4px 5px 8px;
   }
 
   .kb-row {
     display: flex;
-    margin-bottom: 2px;
+    justify-content: center;
     gap: 3px;
+    margin-bottom: 3px;
   }
 
   .kb-key {
     flex: 1;
-    padding: clamp(4px, 1.5vh, 7px) 0;
-    font-size: clamp(0.65rem, 1.8vw, 0.85rem);
-    border-radius: 5px;
-    box-shadow: 0 2px 0 var(--gray1);
+    background: #fff;
+    font-weight: 800;
+    padding: clamp(5px, 1.5vh, 8px) 0;
+    font-size: clamp(0.65rem, 1.6vw, 0.82rem);
+    border-radius: 12px;
+    box-shadow: 0 3px 0 #b0b2b8, 0 1px 2px rgba(0,0,0,0.1);
   }
 
   .kb-backspace {
     flex: 1.5;
-    font-size: 0.9rem;
+    background: var(--gray2);
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  /* Нижний ряд (9 букв + ⌫) — клавиши той же ширины что в верхних рядах */
+  .kb-row:last-child {
+    justify-content: center;
+  }
+
+  .kb-row:last-child .kb-key {
+    flex: 0 0 calc((100vw - 10px - 10 * 3px) / 11);
+  }
+
+  .kb-row:last-child .kb-backspace {
+    flex: 0 0 calc(1.5 * (100vw - 10px - 10 * 3px) / 11);
   }
 
   .game-right {
