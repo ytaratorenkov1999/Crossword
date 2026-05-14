@@ -7,20 +7,23 @@ class GridRenderer {
   }
 
   computeCellSize(rows, cols) {
-    const w = this.wrapperEl.clientWidth  - 12;
-    const h = this.wrapperEl.clientHeight - 12;
-    const gap = 3;
+    const isLandscape = window.matchMedia("(orientation: landscape) and (max-height: 700px)").matches;
+    // Для горизонтальной ориентации уменьшаем отступы и увеличиваем допустимый размер ячеек
+    const padding = isLandscape ? 4 : 12;
+    const w = this.wrapperEl.clientWidth - padding;
+    const h = this.wrapperEl.clientHeight - padding;
+    const gap = isLandscape ? 1 : 3;
     const byW = Math.floor((w - gap * (cols - 1)) / cols);
     const byH = Math.floor((h - gap * (rows - 1)) / rows);
-    const isLandscape = window.matchMedia("(orientation: landscape) and (max-height: 700px)").matches;
-    const minSize = isLandscape ? 24 : 20;
-    const maxSize = isLandscape ? 90 : 58;
+    const minSize = isLandscape ? 28 : 20;
+    const maxSize = isLandscape ? 120 : 58;
     return Math.max(minSize, Math.min(byW, byH, maxSize));
   }
 
   render(cw, onCellClick) {
     const rows = cw.grid.length;
     const cols = cw.grid[0].length;
+    const isLandscape = window.matchMedia("(orientation: landscape) and (max-height: 700px)").matches;
     const cellSize = this.computeCellSize(rows, cols);
     const numSize  = Math.max(7,  Math.round(cellSize * 0.22)) + 'px';
     const letSize  = Math.max(10, Math.round(cellSize * 0.40)) + 'px';
@@ -28,7 +31,7 @@ class GridRenderer {
     this.gridEl.innerHTML = '';
     this.gridEl.style.gridTemplateColumns = `repeat(${cols}, ${cellSize}px)`;
     this.gridEl.style.gridTemplateRows    = `repeat(${rows}, ${cellSize}px)`;
-    this.gridEl.style.gap = '3px';
+    this.gridEl.style.gap = isLandscape ? '1px' : '3px';
 
     const wordStartMap = {};
     cw.words.forEach(w => {
@@ -100,7 +103,6 @@ class GridRenderer {
     }
   }
 
-  // НОВЫЙ МЕТОД: проверяет, видна ли ячейка полностью внутри родительского контейнера
   isElementVisibleInParent(el, parent) {
     const elRect = el.getBoundingClientRect();
     const parentRect = parent.getBoundingClientRect();
@@ -119,7 +121,6 @@ class GridRenderer {
     if (el && !el.classList.contains('correct')) {
       el.classList.remove('active-word');
       el.classList.add('active-cursor');
-      // Прокручиваем только если ячейка не полностью видна (убирает дерганье в горизонтальном режиме)
       if (this.wrapperEl && !this.isElementVisibleInParent(el, this.wrapperEl)) {
         el.scrollIntoView({ block: 'nearest', inline: 'nearest' });
       }
