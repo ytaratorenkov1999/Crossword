@@ -99,6 +99,18 @@ class GridRenderer {
     }
   }
 
+  // НОВЫЙ МЕТОД: проверяет, видна ли ячейка полностью внутри родительского контейнера
+  isElementVisibleInParent(el, parent) {
+    const elRect = el.getBoundingClientRect();
+    const parentRect = parent.getBoundingClientRect();
+    return (
+      elRect.top >= parentRect.top &&
+      elRect.bottom <= parentRect.bottom &&
+      elRect.left >= parentRect.left &&
+      elRect.right <= parentRect.right
+    );
+  }
+
   setCursor(row, col) {
     this.gridEl.querySelectorAll('.gcell.active-cursor')
       .forEach(el => el.classList.remove('active-cursor'));
@@ -106,7 +118,10 @@ class GridRenderer {
     if (el && !el.classList.contains('correct')) {
       el.classList.remove('active-word');
       el.classList.add('active-cursor');
-      el.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      // Прокручиваем только если ячейка не полностью видна (убирает дерганье в горизонтальном режиме)
+      if (this.wrapperEl && !this.isElementVisibleInParent(el, this.wrapperEl)) {
+        el.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      }
     }
   }
 

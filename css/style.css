@@ -788,26 +788,27 @@ body {
   }
 
   .keyboard {
-    padding: 2px 4px 5px;
+    padding: 2px 8px 5px;
     flex-shrink: 0;
   }
 
   .kb-row {
+    display: flex;
     margin-bottom: 2px;
-    gap: 2px;
+    gap: 3px;
   }
 
   .kb-key {
-    width: clamp(20px, 5.8vw, 30px);
+    flex: 1;
     padding: clamp(4px, 1.5vh, 7px) 0;
-    font-size: clamp(0.55rem, 1.7vw, 0.74rem);
+    font-size: clamp(0.65rem, 1.8vw, 0.85rem);
     border-radius: 5px;
     box-shadow: 0 2px 0 var(--gray1);
   }
 
   .kb-backspace {
-    width: clamp(26px, 7.5vw, 38px);
-    font-size: 0.85rem;
+    flex: 1.5;
+    font-size: 0.9rem;
   }
 
   .game-right {
