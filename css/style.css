@@ -1,40 +1,35 @@
 /* =============================================
    КРОССВОРДЫ — ПОЛНАЯ ТАБЛИЦА СТИЛЕЙ
-   Все комментарии и пояснения на русском
    ============================================= */
 
-/* ── ПЕРЕМЕННЫЕ (КАСТОМИЗИРУЕМЫЕ ЗНАЧЕНИЯ) ── */
+/* ── ПЕРЕМЕННЫЕ ── */
 :root {
-  --blue:       #059fdd;   /* основной синий */
-  --blue2:      #069fdb;   /* синий для активных элементов */
-  --blue-dark:  #0480b3;   /* тёмно-синий (наведение/фокус) */
-  --blue-light: rgba(5,159,221,0.12); /* полупрозрачный синий фон */
-  --gray1:      #d7d8da;   /* светлая обводка */
-  --gray2:      #dfe0e2;   /* фон клавиатуры */
-  --bg:         #f4f5f7;   /* фон всей страницы */
-  --surface:    #ffffff;   /* белые карточки */
-  --border:     #d7d8da;   /* граница карточек */
-  --text:       #1a1c22;   /* основной цвет текста */
-  --text-muted: #7a7d8a;   /* приглушённый текст */
-  --correct-bg:     #e6f7ef;   /* фон правильно угаданной ячейки */
-  --correct-border: #3dbf7a;   /* рамка правильной ячейки */
-  --correct-text:   #1e7a4a;   /* цвет буквы в правильной ячейке */
-  --star-on:  #059fdd;   /* закрашенная звезда */
-  --star-off: #d7d8da;   /* пустая звезда */
-  --radius:   16px;       /* скругление карточек */
-  --shadow:    0 4px 20px rgba(5,159,221,0.10), 0 1px 4px rgba(0,0,0,0.06);
-  --shadow-lg: 0 12px 40px rgba(5,159,221,0.18), 0 2px 8px rgba(0,0,0,0.08);
-  /* Системный шрифт для основного текста */
+  --blue:       #059fdd;
+  --blue2:      #069fdb;
+  --blue-dark:  #0480b3;
+  --blue-light: rgba(5,159,221,0.12);
+  --gray1:      #d7d8da;
+  --gray2:      #dfe0e2;
+  --bg:         #f4f5f7;
+  --surface:    #ffffff;
+  --border:     #d7d8da;
+  --text:       #1a1c22;
+  --text-muted: #7a7d8a;
+  --correct-bg:     #e6f7ef;
+  --correct-border: #3dbf7a;
+  --correct-text:   #1e7a4a;
+  --star-on:  #059fdd;
+  --star-off: #d7d8da;
+  --radius:   16px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(5,159,221,0.05);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(5,159,221,0.2);
   --font: system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', Arial, sans-serif;
-  /* Декоративный жирный шрифт для заголовков */
   --font-display: 'Arial Rounded MT Bold', 'Segoe UI', system-ui, sans-serif;
 }
 
-/* ── СБРОС СТИЛЕЙ ── */
+/* ── СБРОС ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { font-size: 16px; -webkit-text-size-adjust: 100%; }
-
 body {
   background: var(--bg);
   color: var(--text);
@@ -44,20 +39,17 @@ body {
 }
 
 /* =============================================
-   ЭКРАНЫ (ГЛАВНАЯ И ИГРОВАЯ)
+   ЭКРАНЫ
    ============================================= */
-
 .screen { display: none; }
 .screen.active { display: block; }
 
-/* Главный экран — растягивается на всю высоту */
 #main-screen.active {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Игровой экран — ровно по высоте видимой области, без прокрутки */
 #game-screen.active {
   height: 100dvh;
   height: 100vh;
@@ -69,9 +61,8 @@ body {
 /* =============================================
    ШАПКА ГЛАВНОГО ЭКРАНА
    ============================================= */
-
 .header {
-  background: var(--blue);
+  background: linear-gradient(135deg, #059fdd 0%, #0480b3 100%);
   padding: 0 20px;
   height: 72px;
   display: flex;
@@ -79,7 +70,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 20;
-  box-shadow: 0 2px 12px rgba(5,159,221,0.3);
+  box-shadow: 0 4px 12px rgba(5,159,221,0.4);
   flex-shrink: 0;
 }
 
@@ -90,10 +81,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
 }
 
-/* Логотип — иконка + текст */
 .logo {
   display: flex;
   align-items: center;
@@ -110,15 +99,12 @@ body {
   opacity: 0.85;
 }
 
-
-
 /* =============================================
-   КАРТОЧКИ КРОССВОРДОВ
+   КАРТОЧКИ
    ============================================= */
-
 .cards-grid {
   display: grid;
-  grid-template-columns: 1fr;  /* по умолчанию 1 колонка */
+  grid-template-columns: 1fr;
   gap: 20px;
   padding: 20px 40px 40px;
   width: 100%;
@@ -146,9 +132,9 @@ body {
 }
 
 .card:hover {
-  transform: translateY(-4px) scale(1.01);
+  transform: translateY(-6px) scale(1.01);
   border-color: var(--blue);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 20px 40px rgba(5,159,221,0.2), 0 8px 16px rgba(0,0,0,0.1);
 }
 
 .card:active { transform: scale(0.97); }
@@ -158,7 +144,6 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Превью — растянуто на всю доступную высоту карточки */
 .card-grid-preview {
   background: var(--gray2);
   padding: 10px;
@@ -232,24 +217,22 @@ body {
 .star.empty   { color: var(--star-off); }
 
 /* =============================================
-   ИГРОВОЙ ХЕДЕР (КРОССВОРД ОТКРЫТ)
+   ИГРОВОЙ ХЕДЕР
    ============================================= */
-
 .game-header {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 0 16px;
   height: 72px;
-  background: var(--blue);
+  background: linear-gradient(135deg, #059fdd 0%, #0480b3 100%);
   flex-shrink: 0;
   width: 100%;
-  box-shadow: 0 2px 12px rgba(5,159,221,0.3);
-  margin-bottom: -1px; /* убирает субпиксельную щель */
+  box-shadow: 0 4px 12px rgba(5,159,221,0.4);
+  margin-bottom: -1px;
   padding-bottom: 1px;
 }
 
-/* Кнопка «← Назад» из кроссворда */
 .game-back-btn {
   background: none;
   border: none;
@@ -278,7 +261,6 @@ body {
 
 .game-back-btn:active { transform: scale(0.94); opacity: 1; }
 
-/* Название кроссворда */
 .game-title {
   font-family: var(--font-display);
   font-size: clamp(1rem, 3.5vw, 1.3rem);
@@ -286,13 +268,12 @@ body {
   flex: 1;
   text-align: center;
   color: #fff;
-  padding-right: 80px; /* компенсирует ширину кнопки «← Назад» слева */
+  padding-right: 80px;
 }
 
 /* =============================================
    СЕТКА КРОССВОРДА
    ============================================= */
-
 .crossword-wrapper {
   flex: 1 1 0;
   min-height: 0;
@@ -303,14 +284,12 @@ body {
   overflow: hidden;
 }
 
-/* Сама сетка (CSS Grid) */
 .crossword-grid {
   display: grid;
   gap: 3px;
   flex-shrink: 0;
 }
 
-/* Одна ячейка сетки */
 .gcell {
   position: relative;
   border-radius: 5px;
@@ -321,13 +300,11 @@ body {
   user-select: none;
 }
 
-/* Чёрная (заблокированная) ячейка */
 .gcell.black {
   background: #b0b2b8;
   border-radius: 4px;
 }
 
-/* Белая (игровая) ячейка */
 .gcell.white {
   background: #ffffff;
   border: 2px solid var(--gray1);
@@ -339,13 +316,11 @@ body {
   background: rgba(5,159,221,0.06);
 }
 
-/* Все ячейки активного слова подсвечены */
 .gcell.active-word {
   background: rgba(5,159,221,0.14);
   border-color: var(--blue2);
 }
 
-/* Ячейка, в которой стоит курсор (выделена ярче) */
 .gcell.active-cursor {
   background: var(--blue) !important;
   border-color: var(--blue-dark) !important;
@@ -354,7 +329,6 @@ body {
 .gcell.active-cursor .cell-letter { color: #fff !important; }
 .gcell.active-cursor .cell-num    { color: rgba(255,255,255,0.8) !important; }
 
-/* Правильно угаданная ячейка — зелёная, не кликабельна */
 .gcell.correct {
   background: var(--correct-bg) !important;
   border-color: var(--correct-border) !important;
@@ -364,7 +338,6 @@ body {
 
 .gcell.correct .cell-letter { color: var(--correct-text) !important; }
 
-/* Номер слова (маленькая цифра в углу) */
 .cell-num {
   position: absolute;
   top: 1px;
@@ -376,7 +349,6 @@ body {
   pointer-events: none;
 }
 
-/* Буква внутри ячейки */
 .cell-letter {
   font-family: var(--font-display);
   font-weight: 700;
@@ -386,17 +358,11 @@ body {
 }
 
 /* =============================================
-   ПРАВАЯ ПАНЕЛЬ (ПОДСКАЗКА + КЛАВИАТУРА)
-   В портрете «приклеивается» через display:contents
+   ПАНЕЛЬ ПОДСКАЗКИ
    ============================================= */
-
 .game-right {
   display: contents;
 }
-
-/* =============================================
-   ПАНЕЛЬ ПОДСКАЗКИ (МЕЖДУ СЕТКОЙ И КЛАВИАТУРОЙ)
-   ============================================= */
 
 .clue-panel {
   display: flex;
@@ -410,7 +376,6 @@ body {
   flex-shrink: 0;
 }
 
-/* Текст подсказки */
 .clue-text {
   flex: 1;
   font-size: clamp(0.78rem, 2.8vw, 0.9rem);
@@ -429,7 +394,6 @@ body {
 
 .clue-text:hover { color: var(--blue); }
 
-/* Стрелки переключения между словами */
 .clue-arrow {
   background: var(--blue-light);
   border: none;
@@ -453,18 +417,16 @@ body {
 .clue-arrow:active { transform: scale(0.88); }
 
 /* =============================================
-   ЭКРАННАЯ КЛАВИАТУРА
+   КЛАВИАТУРА
    ============================================= */
-
 .keyboard {
   padding: 8px 5px 14px;
-  background: var(--gray2);
+  background: linear-gradient(to bottom, #e8e9ec, #dfe0e2);
   border-top: 1px solid var(--gray1);
   flex-shrink: 0;
   touch-action: manipulation;
 }
 
-/* Строка клавиш */
 .kb-row {
   display: flex;
   justify-content: center;
@@ -472,23 +434,21 @@ body {
   margin-bottom: 6px;
 }
 
-/* Одна клавиша */
 .kb-key {
   background: #fff;
-  border: 1.5px solid var(--gray1);
+  border: none;
   color: var(--text);
   font-family: var(--font);
   font-size: clamp(0.75rem, 3.4vw, 0.95rem);
   font-weight: 800;
   padding: clamp(10px, 2.8vh, 14px) 0;
   width: clamp(28px, 8.5vw, 40px);
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background 0.1s, transform 0.08s, border-color 0.1s;
+  transition: transform 0.08s, box-shadow 0.08s, background 0.1s;
   text-align: center;
-  box-shadow: 0 3px 0 var(--gray1);
+  box-shadow: 0 3px 0 #b0b2b8, 0 1px 2px rgba(0,0,0,0.1);
   touch-action: manipulation;
-  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -498,14 +458,12 @@ body {
 }
 
 .kb-key:active {
-  transform: translateY(2px) scale(0.93);
-  box-shadow: none;
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #b0b2b8;
   background: var(--blue);
   color: #fff;
-  border-color: var(--blue-dark);
 }
 
-/* Клавиша Backspace (⌫) — шире и другого цвета */
 .kb-backspace {
   width: clamp(38px, 11vw, 54px);
   background: var(--gray2);
@@ -514,9 +472,8 @@ body {
 }
 
 /* =============================================
-   МОДАЛЬНОЕ ОКНО (ПОКАЗЫВАЕТ ПОДСКАЗКУ КРУПНО)
+   МОДАЛЬНЫЕ ОКНА
    ============================================= */
-
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -539,11 +496,11 @@ body {
 
 .modal-box {
   background: #fff;
-  border-radius: 20px;
+  border-radius: 28px;
   width: 100%;
   max-width: 320px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(5,159,221,0.20), 0 4px 16px rgba(0,0,0,0.10);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2), 0 8px 16px rgba(5,159,221,0.15);
   transform: scale(0.92) translateY(12px);
   transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
 }
@@ -552,7 +509,6 @@ body {
   transform: scale(1) translateY(0);
 }
 
-/* Текст подсказки в модалке */
 .modal-clue {
   padding: 28px 24px 16px;
   font-size: clamp(1rem, 4vw, 1.15rem);
@@ -562,7 +518,6 @@ body {
   text-align: center;
 }
 
-/* Кнопка «Понятно» */
 .modal-ok {
   display: block;
   width: calc(100% - 32px);
@@ -582,7 +537,6 @@ body {
 .modal-ok:hover  { background: var(--blue-dark); }
 .modal-ok:active { transform: scale(0.97); }
 
-/* Кнопки модалки выхода — «Нет» и «Да» рядом */
 .exit-modal-btns {
   display: flex;
   gap: 10px;
@@ -613,10 +567,7 @@ body {
 .modal-cancel:hover  { background: var(--gray1); }
 .modal-cancel:active { transform: scale(0.97); }
 
-/* =============================================
-   МОДАЛЬНОЕ ОКНО ПОБЕДЫ
-   ============================================= */
-
+/* МОДАЛЬ ПОБЕДЫ */
 .win-modal-box {
   text-align: center;
   padding-bottom: 4px;
@@ -657,261 +608,81 @@ body {
   padding: 0 16px 20px;
 }
 
-.win-btn-restart {
-  width: 100%;
-  margin: 0;
-}
-
-.win-btn-choose {
-  width: 100%;
-  margin: 0;
-}
-
+.win-btn-restart { width: 100%; margin: 0; }
+.win-btn-choose  { width: 100%; margin: 0; }
 
 /* =============================================
    АДАПТАЦИЯ
    ============================================= */
 
-/* ── Узкие телефоны (≤ 379px)
-   Одна колонка, карточка фиксированной ширины как на 379px
-   ── */
 @media (max-width: 379px) {
   .cards-grid {
     grid-template-columns: 1fr;
     gap: 16px;
-    padding: 14px 28px 28px; /* боковые отступы 28px вместо 20px */
+    padding: 14px 28px 28px;
     max-width: 379px;
-    box-sizing: border-box;
   }
-
-  .card {
-    max-width: 323px; /* 379 - 28*2 */
-    width: 100%;
-  }
-
-  /* Футер крупнее — превью визуально чуть меньше */
-  .card-footer {
-    padding: 12px 12px 14px;
-    gap: 6px;
-  }
-
-  /* Номер крупнее */
-  .card-number {
-    width: 42px;
-    height: 42px;
-    font-size: 1rem;
-  }
-
-  /* Звёзды крупнее */
-  .star {
-    font-size: 1.2rem;
-  }
+  .card { max-width: 323px; width: 100%; }
+  .card-footer { padding: 12px 12px 14px; gap: 6px; }
+  .card-number { width: 42px; height: 42px; font-size: 1rem; }
+  .star { font-size: 1.2rem; }
 }
 
-/* ── Очень маленькие экраны (≤ 360px)
-   Клавиши чуть компактнее, карточка держит те же пропорции
-   ── */
 @media (max-width: 360px) {
   .kb-key { padding: 7px 0; font-size: 0.65rem; }
 }
 
-/* ── Маленькие телефоны (380px – 559px)
-   Две колонки карточек, компактные отступы
-   ── */
 @media (min-width: 380px) and (max-width: 559px) {
-  .cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    padding: 14px 12px 28px;
-  }
+  .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 14px 12px 28px; }
   .card { max-width: none; }
 }
 
-/* ── Средние телефоны (560px – 699px)
-   Две колонки карточек, нормальные отступы
-   ── */
 @media (min-width: 560px) and (max-width: 699px) {
-  .cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    padding: 18px 16px 32px;
-  }
+  .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 18px 16px 32px; }
   .card { max-width: none; }
 }
 
-/* ── Планшеты и небольшие десктопы (700px – 1099px)
-   Три колонки карточек
-   ── */
 @media (min-width: 700px) and (max-width: 1099px) {
-  .cards-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 24px 20px 44px;
-  }
+  .cards-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 24px 20px 44px; }
   .card { max-width: none; }
 }
 
-/* ── Планшеты в портрете (768px – 1199px, высота ≥ 900px)
-   Крупнее превью карточки, клавиатура и панель подсказки
-   ── */
 @media (min-width: 768px) and (max-width: 1199px) and (min-height: 900px) {
-  .card-grid-preview {
-    min-height: 140px;
-  }
-
-  .clue-panel {
-    height: 58px;
-    padding: 0 24px;
-    gap: 12px;
-  }
-
-  .clue-text {
-    font-size: 1.05rem;
-  }
-
-  .clue-arrow {
-    width: 42px;
-    height: 42px;
-    font-size: 1.7rem;
-  }
-
-  .crossword-wrapper {
-    padding: 10px 16px 6px;
-  }
-
-  .keyboard {
-    padding: 16px 20px 28px;
-  }
-
-  .kb-row {
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-
-  .kb-key {
-    width: clamp(44px, 6vw, 62px);
-    font-size: clamp(1rem, 1.6vw, 1.3rem);
-    padding: clamp(14px, 2vh, 20px) 0;
-    border-radius: 12px;
-    box-shadow: 0 4px 0 var(--gray1);
-  }
-
-  .kb-backspace {
-    width: clamp(56px, 8vw, 80px);
-    font-size: clamp(1.2rem, 2vw, 1.5rem);
-  }
+  .card-grid-preview { min-height: 140px; }
+  .clue-panel { height: 58px; padding: 0 24px; gap: 12px; }
+  .clue-text { font-size: 1.05rem; }
+  .clue-arrow { width: 42px; height: 42px; font-size: 1.7rem; }
+  .crossword-wrapper { padding: 10px 16px 6px; }
+  .keyboard { padding: 16px 20px 28px; }
+  .kb-row { gap: 10px; margin-bottom: 12px; }
+  .kb-key { width: clamp(44px, 6vw, 62px); font-size: clamp(1rem, 1.6vw, 1.3rem); padding: clamp(14px, 2vh, 20px) 0; border-radius: 12px; box-shadow: 0 4px 0 var(--gray1); }
+  .kb-backspace { width: clamp(56px, 8vw, 80px); font-size: clamp(1.2rem, 2vw, 1.5rem); }
 }
 
-/* ── Планшеты (≥ 768px)
-   Увеличенная клавиатура и панель подсказки
-   ── */
 @media (min-width: 768px) {
-  .clue-panel {
-    height: 52px;
-    padding: 0 20px;
-    gap: 10px;
-  }
-
-  .clue-text {
-    font-size: 1rem;
-  }
-
-  .clue-arrow {
-    width: 38px;
-    height: 38px;
-    font-size: 1.6rem;
-  }
-
-  .keyboard {
-    padding: 12px 16px 20px;
-  }
-
-  .kb-row {
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-
-  .kb-key {
-    width: 48px;
-    font-size: 1rem;
-    padding: 14px 0;
-    border-radius: 10px;
-    box-shadow: 0 4px 0 var(--gray1);
-  }
-
-  .kb-backspace {
-    width: 64px;
-    font-size: 1.2rem;
-  }
+  .clue-panel { height: 52px; padding: 0 20px; gap: 10px; }
+  .clue-text { font-size: 1rem; }
+  .clue-arrow { width: 38px; height: 38px; font-size: 1.6rem; }
+  .keyboard { padding: 12px 16px 20px; }
+  .kb-row { gap: 8px; margin-bottom: 10px; }
+  .kb-key { width: 48px; font-size: 1rem; padding: 14px 0; border-radius: 10px; box-shadow: 0 4px 0 var(--gray1); }
+  .kb-backspace { width: 64px; font-size: 1.2rem; }
 }
 
-/* ── Крупные десктопы (≥ 1100px)
-   Три колонки карточек с максимальными отступами,
-   просторный хедер, крупная клавиатура и подсказка,
-   кнопка «✕» фиксируется в правом верхнем углу экрана
-   ── */
 @media (min-width: 1100px) {
-  .cards-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    padding: 32px 24px 52px;
-    max-width: 960px;
-  }
-
-  .game-header {
-    height: 72px;
-    padding: 0 24px;
-  }
-
-  .game-title {
-    font-size: 1.3rem;
-    padding-right: 80px;
-  }
-
-  .clue-panel {
-    height: 60px;
-    padding: 0 32px;
-    gap: 14px;
-  }
-
-  .clue-text {
-    font-size: 1.15rem;
-  }
-
-  .clue-arrow {
-    width: 44px;
-    height: 44px;
-    font-size: 1.8rem;
-  }
-
-  .keyboard {
-    padding: 16px 24px 24px;
-  }
-
-  .kb-row {
-    gap: 12px;
-    margin-bottom: 14px;
-  }
-
-  .kb-key {
-    width: 56px;
-    font-size: 1.25rem;
-    padding: 18px 0;
-    border-radius: 12px;
-    box-shadow: 0 4px 0 var(--gray1);
-  }
-
-  .kb-backspace {
-    width: 72px;
-    font-size: 1.4rem;
-  }
+  .cards-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; padding: 32px 24px 52px; max-width: 960px; }
+  .game-header { height: 72px; padding: 0 24px; }
+  .game-title { font-size: 1.3rem; padding-right: 80px; }
+  .clue-panel { height: 60px; padding: 0 32px; gap: 14px; }
+  .clue-text { font-size: 1.15rem; }
+  .clue-arrow { width: 44px; height: 44px; font-size: 1.8rem; }
+  .keyboard { padding: 16px 24px 24px; }
+  .kb-row { gap: 12px; margin-bottom: 14px; }
+  .kb-key { width: 56px; font-size: 1.25rem; padding: 18px 0; border-radius: 12px; box-shadow: 0 4px 0 var(--gray1); }
+  .kb-backspace { width: 72px; font-size: 1.4rem; }
 }
 
-/* ── Горизонтальная ориентация (высота ≤ 700px)
-   Главный экран: карточки в три колонки, всё компактнее.
-   Игровой экран: хедер и клавиши минимального размера,
-   сетка занимает всё оставшееся пространство.
-   ── */
+/* ── ГОРИЗОНТАЛЬНАЯ ОРИЕНТАЦИЯ ── */
 @media (orientation: landscape) and (max-height: 700px) {
 
   /* Главный экран */
@@ -939,7 +710,6 @@ body {
   .card-grid-preview {
     padding: 6px;
     min-height: 70px;
-    /* flex:1 уже задан базово — SVG вписывается сам */
   }
 
   .card-footer {
@@ -978,11 +748,20 @@ body {
     height: 14px;
   }
 
+  /* РАЗРЕШАЕМ ПРОКРУТКУ, ПРИЖИМАЕМ К ВЕРХУ, ЦЕНТРИРУЕМ ПО ГОРИЗОНТАЛИ */
   .crossword-wrapper {
     flex: 1 1 0;
     min-height: 0;
+    overflow: auto !important;
+    -webkit-overflow-scrolling: touch;
     padding: 3px 6px;
-    overflow: hidden;
+    align-items: flex-start !important;
+    justify-content: center !important;
+  }
+
+  /* Уменьшаем расстояние между ячейками */
+  .crossword-grid {
+    gap: 1px !important;
   }
 
   .clue-panel {
