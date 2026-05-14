@@ -8,7 +8,6 @@ class GridRenderer {
 
   computeCellSize(rows, cols) {
     const isLandscape = window.matchMedia("(orientation: landscape) and (max-height: 700px)").matches;
-    // Для горизонтальной ориентации уменьшаем отступы и увеличиваем допустимый размер ячеек
     const padding = isLandscape ? 4 : 12;
     const w = this.wrapperEl.clientWidth - padding;
     const h = this.wrapperEl.clientHeight - padding;
@@ -114,14 +113,14 @@ class GridRenderer {
     );
   }
 
-  setCursor(row, col) {
+  setCursor(row, col, skipScroll = false) {
     this.gridEl.querySelectorAll('.gcell.active-cursor')
       .forEach(el => el.classList.remove('active-cursor'));
     const el = this.getCell(row, col);
     if (el && !el.classList.contains('correct')) {
       el.classList.remove('active-word');
       el.classList.add('active-cursor');
-      if (this.wrapperEl && !this.isElementVisibleInParent(el, this.wrapperEl)) {
+      if (!skipScroll && this.wrapperEl && !this.isElementVisibleInParent(el, this.wrapperEl)) {
         el.scrollIntoView({ block: 'nearest', inline: 'nearest' });
       }
     }
@@ -562,7 +561,6 @@ class CrosswordApp {
     let { row, col } = this.activeCell;
     const cellEl = this.grid.getCell(row, col);
 
-    // Если ячейка зелёная – просто перемещаемся назад
     if (cellEl?.classList.contains('correct')) {
       this._moveCursor(-1);
       this._updateActiveWordFromCurrentCell();
@@ -571,14 +569,11 @@ class CrosswordApp {
 
     const key = `${row}-${col}`;
     if (this.userAnswers[key]) {
-      // Есть буква – удаляем
       delete this.userAnswers[key];
       this.grid.setLetter(row, col, '');
       this._checkAllWordsAtCell(row, col);
-      // Не перемещаем курсор, но обновляем подсветку на случай, если слово стало неправильным
       this._updateActiveWordFromCurrentCell();
     } else {
-      // Пустая ячейка – перемещаемся назад с обратной связью
       if (navigator.vibrate) navigator.vibrate(50);
       this.sound.playError();
       this._moveCursor(-1);
@@ -596,23 +591,20 @@ class CrosswordApp {
 
     let newPos = pos + dir;
 
-    // Итеративно пропускаем зелёные ячейки
     while (newPos >= 0 && newPos < w.length) {
       const newRow = w.direction === 'across' ? w.row       : w.row + newPos;
       const newCol = w.direction === 'across' ? w.col + newPos : w.col;
       const cellEl = this.grid.getCell(newRow, newCol);
 
       if (!cellEl?.classList.contains('correct')) {
-        // Нашли свободную клетку — ставим курсор
         this.activeCell = { row: newRow, col: newCol };
-        this.grid.setCursor(newRow, newCol);
+        // Прокрутка не нужна при перемещении внутри текущего слова
+        this.grid.setCursor(newRow, newCol, true);
         this._updateActiveWordFromCurrentCell();
         return;
       }
-
-      newPos += dir; // клетка зелёная — двигаемся дальше
+      newPos += dir;
     }
-    // Вышли за границу слова — курсор не двигаем
   }
 
   _updateActiveWordFromCurrentCell() {
@@ -623,7 +615,6 @@ class CrosswordApp {
 
     let newWord = this.activeWord;
     if (!newWord || !candidates.includes(newWord)) {
-      // Выбираем горизонтальное, если есть, иначе вертикальное
       newWord = candidates.find(w => w.direction === 'across') || candidates[0];
     }
 
@@ -632,9 +623,7 @@ class CrosswordApp {
       this.activeWordIndex = this.currentCrossword.words.indexOf(newWord);
       this.cluePanel.setClue(newWord);
     }
-    // Переподсвечиваем всё слово
     this.grid.highlightWord(this.activeWord);
-    // Устанавливаем курсор
     this.grid.setCursor(row, col);
   }
 
@@ -697,10 +686,8 @@ class CrosswordApp {
   });
   if (anyNewCorrect) {
     if (this.correctWords.size === this.currentCrossword.words.length) {
-      // Победа
       setTimeout(() => { this.sound.playWin(); this._showWin(); }, 400);
     } else {
-      // Переход к следующему неразгаданному слову
       setTimeout(() => this._jumpToNextUnsolved(), 300);
     }
   }
