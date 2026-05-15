@@ -347,14 +347,21 @@ body {
   color: #555;
   line-height: 1;
   pointer-events: none;
+  z-index: 2;
 }
 
 .cell-letter {
+  position: absolute;
+  bottom: 1px;
+  left: 0;
+  right: 0;
+  text-align: center;
   font-family: var(--font-display);
   font-weight: 700;
   color: var(--text);
   line-height: 1;
   pointer-events: none;
+  z-index: 1;
 }
 
 /* =============================================
@@ -815,7 +822,7 @@ body {
     font-size: 0.95rem;
   }
 
-  /* Нижний ряд  — клавиши той же ширины что в верхних рядах */
+  /* Нижний ряд (9 букв + ⌫) — клавиши той же ширины что в верхних рядах */
   .kb-row:last-child {
     justify-content: center;
   }
