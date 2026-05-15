@@ -533,8 +533,22 @@ class CrosswordApp {
 
   _navigateClue(dir) {
     const list = this.currentCrossword.words;
-    this.activeWordIndex = (this.activeWordIndex + dir + list.length) % list.length;
-    const word = list[this.activeWordIndex];
+    const total = list.length;
+    let idx = this.activeWordIndex;
+    for (let i = 1; i <= total; i++) {
+      idx = (this.activeWordIndex + dir * i + total) % total;
+      const candidate = list[idx];
+      if (!this.correctWords.has(this._wordKey(candidate))) {
+        this.activeWordIndex = idx;
+        const startCell = this._firstFreeCell(candidate);
+        this._setActiveWord(candidate, startCell.row, startCell.col);
+        return;
+      }
+    }
+    // Все слова отгаданы — просто показываем следующее
+    idx = (this.activeWordIndex + dir + total) % total;
+    this.activeWordIndex = idx;
+    const word = list[idx];
     const startCell = this._firstFreeCell(word);
     this._setActiveWord(word, startCell.row, startCell.col);
   }
