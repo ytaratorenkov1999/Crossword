@@ -95,7 +95,7 @@ const crosswordsData = [
         number: 2,
         direction: 'across',
         row: 2, col: 0, length: 7,
-        clue: 'Мягкая теплая шерсть из подшерска коз',
+        clue: 'Мягкая теплая шерсть из подшерстка коз',
         answer: 'КАШЕМИР'
       },
       {
